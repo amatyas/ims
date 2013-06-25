@@ -233,8 +233,8 @@ $mainConfig = array(
             'tablePrefix' => '',
             'connectionString' => 'mysql:host=localhost;dbname=p3',
             'emulatePrepare' => true,
-            'username' => '',
-            'password' => '',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
