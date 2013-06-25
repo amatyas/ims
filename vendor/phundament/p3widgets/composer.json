@@ -1,0 +1,24 @@
+{
+    "name": "phundament/p3widgets",
+    "description": "Widget Manager",
+    "keywords": ["widget", "cms", "p3media"],
+    "homepage": "https://github.com/schmunk42/p3widgets",
+    "type": "yii-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Tobias Munk",
+            "email": "schmunk@usrbin.de",
+            "homepage": "http://www.usrbin.de"
+        }
+    ],
+    "autoload": {
+        "classmap": ["components/", "models/"]
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "yiisoft/yii": "1.1.*",
+        "phundament/p3extensions": ">=0.8.1",
+        "crisu83/yii-bootstrap": ">=1.0,<3.0"
+    }
+}

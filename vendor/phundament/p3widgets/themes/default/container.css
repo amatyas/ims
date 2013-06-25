@@ -1,0 +1,44 @@
+DIV.widget-container,
+DIV.widget {
+  position: relative;
+}
+DIV.widget-container.admin {
+  border: 1px dashed #ccc;
+  margin: -1px;
+  min-height: 70px;
+}
+DIV.widget-container.admin DIV.widget {
+  min-height: 70px;
+}
+DIV.widget-container DIV.handle,
+DIV.widget-container DIV.delete {
+  display: inline-block;
+}
+DIV.widget-container DIV.overlay {
+  background: rgba(30, 30, 30, 0.5);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: none;
+  text-align: center;
+  z-index: 1100;
+}
+DIV.widget-container DIV.overlay DIV.controls {
+  margin: 4px;
+}
+DIV.widget-container DIV.overlay DIV.controls SELECT {
+  margin: 0 4px 22px 0;
+}
+DIV.widget-container DIV.overlay DIV.controls .ui-icon {
+  left: 5px;
+}
+DIV.widget-container DIV.overlay DIV.controls .ui-button-text {
+  width: 0;
+  line-height: 0;
+  padding: 13px;
+  visibility: hidden;
+}
+DIV.widget.over .overlay,
+DIV.widget-container.over .overlay {
+  display: block;
+}

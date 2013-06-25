@@ -1,0 +1,16 @@
+{
+    "name": "schmunk42/multi-theme",
+    "description": "Yii Framework Theme-Manager class, switch themes by regular expressions on controller routes.",
+    "keywords": ["yii","theme","manager","route","phundament"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Tobias Munk",
+            "email": "schmunk@usrbin.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "yiisoft/yii": "1.1.*"
+    }
+}
