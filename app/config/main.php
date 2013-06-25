@@ -287,7 +287,7 @@ $mainConfig = array(
         ),
         'urlManager' => array(
             'class' => 'vendor.phundament.p3extensions.components.P3LangUrlManager',
-            'showScriptName' => false,
+            'showScriptName' => true,
             'appendParams' => false, // in general more error resistant
             'urlFormat' => 'path', // use 'path', otherwise rules below won't work
             'rules' => array(
