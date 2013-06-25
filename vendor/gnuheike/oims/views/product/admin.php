@@ -28,7 +28,7 @@ $this->widget('TbExtendedGridView', array(
     'id' => 'inv-product-grid',
     'type' => 'striped bordered',
     'dataProvider' => $model->search(),
-    'template' => "{items}",
+    'template' => "{items}{pager}",
     'pager' => array(
         'class' => 'TbPager',
         'displayFirstAndLast' => true,
