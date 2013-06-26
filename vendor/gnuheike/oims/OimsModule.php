@@ -9,6 +9,7 @@ class OimsModule extends CWebModule {
         $this->setImport(array(
             'oims.models.*',
             'oims.components.*',
+            'oims.widgets.*',
         ));
     }
 

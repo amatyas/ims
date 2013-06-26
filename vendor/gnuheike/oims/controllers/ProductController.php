@@ -83,9 +83,8 @@ class ProductController extends Controller {
         if (isset($_POST['InvProduct'])) {
             $model->attributes = $_POST['InvProduct'];
 
-
             try {
-                if ($model->save()) {
+                if ($model->save() !Yii::app()->request->isAjaxRequest) {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
@@ -97,7 +96,10 @@ class ProductController extends Controller {
             }
         }
 
-        $this->render('update', array('model' => $model,));
+        if (Yii::app()->request->isAjaxRequest)
+            $this->renderPartial('_form', array('model' => $model), false, true);
+        else
+            $this->render('update', array('model' => $model,));
     }
 
     public function actionEditableSaver() {
@@ -126,7 +128,7 @@ class ProductController extends Controller {
             throw new CHttpException(400, Yii::t('oims', 'Invalid request. Please do not repeat this request again.'));
     }
 
-    public function actionIndex() {        
+    public function actionIndex() {
         $dataProvider = new CActiveDataProvider('InvProduct');
         $this->render('index', array('dataProvider' => $dataProvider,));
     }

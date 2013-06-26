@@ -35,4 +35,8 @@ class InvProduct extends BaseInvProduct {
         );
     }
 
+    public function getHint($name) {
+        return ("help.{$name}" != $help = Yii::t('oims', "help.{$name}")) ? $help : null;
+    }
+
 }

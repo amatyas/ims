@@ -20,7 +20,7 @@ $mainConfig = array(
         'bootstrap',
     ),
     'aliases' => array(
-        // composer
+// composer
         'root' => $applicationDirectory . '/..',
         'webroot' => $applicationDirectory . '/../www',
         'vendor' => $applicationDirectory . '/../vendor',
@@ -60,7 +60,7 @@ $mainConfig = array(
         'vendor.vitalets.yii-bootstrap-editable.*', // p3media
     ),
     'modules' => array(
-        // uncomment the following to enable the Gii tool
+// uncomment the following to enable the Gii tool
         'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'p3',
@@ -86,9 +86,9 @@ $mainConfig = array(
                     'TbCarousel' => 'Bootstrap Carousel',
                     'EFancyboxWidget' => 'Fancy Box',
                 // use eg. $> php composer.phar require yiiext/swf-object-widget to get the
-                // widget source; import widget class or set an alias.
-                #'P3MarkdownWidget' => 'Markdown Widget'
-                #'ESwfObjectWidget' => 'SWF Object',
+// widget source; import widget class or set an alias.
+#'P3MarkdownWidget' => 'Markdown Widget'
+#'ESwfObjectWidget' => 'SWF Object',
                 ),
             ),
         ),
@@ -155,21 +155,21 @@ $mainConfig = array(
                     'p3media-ckbrowse' => array(
                         'commands' => array(
                             'resize' => array(150, 120), // use third parameter for master setting, see Image constants
-                        #'quality' => 80, // for jpegs
+#'quality' => 80, // for jpegs
                         ),
                         'type' => 'png'
                     ),
                     'p3media-manager' => array(
                         'commands' => array(
                             'resize' => array(300, 200), // use third parameter for master setting, see Image constants
-                        #'quality' => 80, // for jpegs
+#'quality' => 80, // for jpegs
                         ),
                         'type' => 'png'
                     ),
                     'p3media-upload' => array(
                         'commands' => array(
                             'resize' => array(60, 30), // use third parameter for master setting, see Image constants
-                        #'quality' => 80, // for jpegs
+#'quality' => 80, // for jpegs
                         ),
                         'type' => 'png'
                     ),
@@ -194,8 +194,8 @@ $mainConfig = array(
             'userIdColumn' => 'id',
             'userClass' => 'User',
             'cssFile' => '/themes/backend/css/yii-rights.css'
-        #'install' => true, // Enables the installer.
-        #'superuserName' => 'admin'
+#'install' => true, // Enables the installer.
+#'superuserName' => 'admin'
         ),
         'user' => array(
             'class' => 'vendor.mishamx.yii-user.UserModule',
@@ -204,6 +204,22 @@ $mainConfig = array(
     ),
     // application components
     'components' => array(
+        'clientScript' => array(
+            'class' => 'vendor.nlac.nls.NLSClientScript',
+            //'excludePattern' => '/\.tpl/i', //js regexp, files with matching paths won't be filtered is set to other than 'null'
+//'includePattern' => '/\.php/', //js regexp, only files with matching paths will be filtered if set to other than 'null'
+            'mergeJs' => true, //def:true
+            'compressMergedJs' => false, //def:false
+            'mergeCss' => false, //def:true
+            'compressMergedCss' => false, //def:false
+            'mergeJsExcludePattern' => '/edit_area/', //won't merge js files with matching names
+            'mergeIfXhr' => false, //def:false, if true->attempts to merge the js files even if the request was xhr (if all other merging conditions are satisfied)
+            'serverBaseUrl' => '', //can be optionally set here
+            'mergeAbove' => 1, //def:1, only "more than this value" files will be merged,
+            'curlTimeOut' => 10, //def:10, see curl_setopt() doc
+            'curlConnectionTimeOut' => 10, //def:10, see curl_setopt() doc
+            'appVersion' => 1.0 //if set, it will be appended to the urls of the merged scripts/css
+        ),
         'authManager' => array(
             'class' => 'RDbAuthManager', // Provides support authorization item sorting.
             'defaultRoles' => array('Authenticated', 'Guest'), // see correspoing business rules, note: superusers always get checkAcess == true
@@ -213,8 +229,8 @@ $mainConfig = array(
             'coreCss' => false, // whether to register the Bootstrap core CSS (bootstrap.min.css), defaults to true
             'responsiveCss' => false, // whether to register the Bootstrap responsive CSS (bootstrap-responsive.min.css), default to false
             'plugins' => array(
-                // Optionally you can configure the "global" plugins (button, popover, tooltip and transition)
-                // To prevent a plugin from being loaded set it to false as demonstrated below
+// Optionally you can configure the "global" plugins (button, popover, tooltip and transition)
+// To prevent a plugin from being loaded set it to false as demonstrated below
                 'transition' => false, // disable CSS transitions
                 'tooltip' => array(
                     'selector' => 'a.tooltip', // bind the plugin tooltip to anchor tags with the 'tooltip' class
@@ -223,7 +239,7 @@ $mainConfig = array(
                     ),
                 ),
             // If you need help with configuring the plugins, please refer to Bootstrap's own documentation:
-            // http://twitter.github.com/bootstrap/javascript.html
+// http://twitter.github.com/bootstrap/javascript.html
             ),
         ),
         'cache' => array(
@@ -238,7 +254,7 @@ $mainConfig = array(
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
-            // use 'site/error' action to display errors
+// use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ),
         'image' => array(
@@ -291,7 +307,7 @@ $mainConfig = array(
             'appendParams' => false, // in general more error resistant
             'urlFormat' => 'path', // use 'path', otherwise rules below won't work
             'rules' => array(
-                // disabling standard login page
+// disabling standard login page
                 '<lang:[a-z]{2}>/site/login' => 'user/login',
                 'site/login' => 'user/login',
                 // convenience rules
@@ -301,7 +317,7 @@ $mainConfig = array(
                 '<lang:[a-z]{2}>/<pageName:[a-zA-Z0-9-._]*>-<pageId:\d+>.html' => 'p3pages/default/page',
                 // p3media - SEO
                 '<lang:[a-z]{2}>/img/<preset:[a-zA-Z0-9-._]+>/<title:.+>_<id:\d+><extension:.[a-zA-Z0-9]{1,}+>' => 'p3media/file/image', // p3media images, TESTING: disable in case of problems
-                // Yii
+// Yii
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 // general language and route handling
@@ -312,7 +328,7 @@ $mainConfig = array(
             ),
         ),
         'user' => array(
-            // enable cookie-based authentication
+// enable cookie-based authentication
             'class' => 'RWebUser', // crisu83/yii-rights: Allows super users access implicitly.
             'behaviors' => array('vendor.schmunk42.web-user-behavior.WebUserBehavior'), // compatibility behavior for yii-user and yii-rights
             'allowAutoLogin' => true,
@@ -321,6 +337,11 @@ $mainConfig = array(
         'widgetFactory' => array(
             'class' => 'CWidgetFactory',
             'enableSkin' => true,
+            'widgets' => array(
+                'TbEditableField' => array(
+                    'mode' => 'inline',
+                ),
+            ),
         ),
         'mail' => array(
             'class' => 'vendor.jonah.mail.YiiMail',
@@ -331,9 +352,9 @@ $mainConfig = array(
         ),
     ),
     // application-level parameters that can be accessed
-    // using Yii::app()->params['paramName']
+// using Yii::app()->params['paramName']
     'params' => array(
-        // this is used in contact page
+// this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // global Phundament 3 parameters
         'p3.backendTheme' => 'backend', // defaults to 'backend'
