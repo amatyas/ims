@@ -84,7 +84,7 @@ class ProductController extends Controller {
             $model->attributes = $_POST['InvProduct'];
 
             try {
-                if ($model->save() !Yii::app()->request->isAjaxRequest) {
+                if ($model->save() && !Yii::app()->request->isAjaxRequest) {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
