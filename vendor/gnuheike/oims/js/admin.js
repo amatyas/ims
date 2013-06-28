@@ -1,37 +1,31 @@
-function updateComment(url) {
-
-
-
-
-    return false;
-}
-
 $(function() {
     $('body').delegate('table tr.product-grid-tr-trigger', 'click', function() {
-        oims_toggle_loader();
-
-        var request = jQuery.ajax({
-            'url': $(this).attr('data-update-url'),
-            'data': $(this).serialize(),
-            'type': 'post',
-            'dataType': 'html',
-            'cache': false
-        });
-
-        request.complete(function(jqXHR) {
-            $('#oims-form .content').html(jqXHR.responseText);
-            oims_toggle_loader();
-        });
-
-        request.success(function(data) {
-        });
-
-        request.error(function(jqXHR, textStatus) {
-            console.log(jqXHR);
-        });
-
+        load_crud_product_form($(this).attr('data-update-url'));
     });
 });
+
+function load_crud_product_form(url) {
+    oims_toggle_loader();
+    var request = jQuery.ajax({
+        'url': url,
+        'data': {},
+        'type': 'post',
+        'dataType': 'html',
+        'cache': false
+    });
+
+    request.complete(function(jqXHR) {
+        $('#oims-form .content').html(jqXHR.responseText);
+        oims_toggle_loader();
+    });
+
+    request.success(function(data) {
+    });
+
+    request.error(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+    });
+}
 
 function oims_toggle_loader() {
     $('#oims-form .spin').toggle();

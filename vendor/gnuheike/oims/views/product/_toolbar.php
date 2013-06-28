@@ -1,6 +1,6 @@
 <div class="btn-toolbar">
     <div class="btn-group">
-        <?php ?><?php
+        <?php
         switch ($this->action->id) {
             case "create":
                 $this->widget("bootstrap.widgets.TbButton", array(
@@ -13,7 +13,10 @@
                 $this->widget("bootstrap.widgets.TbButton", array(
                     "label" => Yii::t("crud", "Create"),
                     "icon" => "icon-plus",
-                    "url" => array("create")
+                    "url" => "javascript:void(0);",
+                    'htmlOptions' => array(
+                        "onclick" => "load_crud_product_form('" . Yii::app()->createUrl('/oims/product/create') . "')",
+                    ),                    
                 ));
                 break;
             case "view":

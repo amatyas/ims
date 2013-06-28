@@ -53,11 +53,11 @@ abstract class BaseInvProductImage extends CActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'int' => Yii::t('oims', 'Int'),
-            'image_path' => Yii::t('oims', 'Image Path'),
-            'thumb_path' => Yii::t('oims', 'Thumb Path'),
-            'product_id' => Yii::t('oims', 'Product'),
-            'display_order' => Yii::t('oims', 'Display Order'),
+            'int' => Yii::t('OimsModule.oims', 'Int'),
+            'image_path' => Yii::t('OimsModule.oims', 'Image Path'),
+            'thumb_path' => Yii::t('OimsModule.oims', 'Thumb Path'),
+            'product_id' => Yii::t('OimsModule.oims', 'Product'),
+            'display_order' => Yii::t('OimsModule.oims', 'Display Order'),
         );
     }
 

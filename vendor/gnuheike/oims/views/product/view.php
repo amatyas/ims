@@ -1,17 +1,17 @@
 <?php
-$this->breadcrumbs[Yii::t('oims','Inv Products')] = array('admin');
+$this->breadcrumbs[Yii::t('OimsModule.oims','Inv Products')] = array('admin');
 $this->breadcrumbs[] = $model->id;
 ?>
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    <?php echo Yii::t('oims','Inv Product')?> <small><?php echo Yii::t('oims','View')?> #<?php echo $model->id ?></small></h1>
+    <?php echo Yii::t('OimsModule.oims','Inv Product')?> <small><?php echo Yii::t('OimsModule.oims','View')?> #<?php echo $model->id ?></small></h1>
 
 
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
 
 <h2>
-    <?php echo Yii::t('oims','Data')?></h2>
+    <?php echo Yii::t('OimsModule.oims','Data')?></h2>
 
 <p>
     <?php
@@ -46,5 +46,5 @@ $this->breadcrumbs[] = $model->id;
 
 
 <h2>
-    <?php echo Yii::t('oims','Relations')?></h2>
+    <?php echo Yii::t('OimsModule.oims','Relations')?></h2>
 

@@ -55,9 +55,9 @@ abstract class BaseInvProductCategory extends CActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('oims', 'ID'),
-            'name' => Yii::t('oims', 'Name'),
-            'parent_cat_id' => Yii::t('oims', 'Parent Cat'),
+            'id' => Yii::t('OimsModule.oims', 'ID'),
+            'name' => Yii::t('OimsModule.oims', 'Name'),
+            'parent_cat_id' => Yii::t('OimsModule.oims', 'Parent Cat'),
         );
     }
 

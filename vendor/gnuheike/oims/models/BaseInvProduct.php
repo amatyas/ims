@@ -31,7 +31,7 @@
 abstract class BaseInvProduct extends CActiveRecord {
 
     public $details;
-    
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
@@ -43,7 +43,7 @@ abstract class BaseInvProduct extends CActiveRecord {
     public function rules() {
         return array_merge(
                 parent::rules(), array(
-            array('sku, name, description, is_in_stock, wholesale_price, retail_price, manufacturer, last_update_date, supplier_id', 'required'),
+            array('sku, name, description, is_in_stock, wholesale_price, retail_price, manufacturer, supplier_id', 'required'),
             array('short_description, items_in_stock, wholesale_special_price, retail_special_price, special_price_start, special_price_end, is_published, is_validated, category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('is_in_stock, items_in_stock, is_published, is_validated, supplier_id, category_id', 'numerical', 'integerOnly' => true),
             array('sku, name, manufacturer', 'length', 'max' => 255),
@@ -59,39 +59,38 @@ abstract class BaseInvProduct extends CActiveRecord {
                 parent::behaviors(), array(
             'savedRelated' => array(
                 'class' => 'gii-template-collection.components.CSaveRelationsBehavior'
-            )
-                )
-        );
+            ),           
+        ));
     }
 
     public function relations() {
         return array(
             'category' => array(self::BELONGS_TO, 'InvProductCategory', 'category_id'),
-            'images' => array(self::HAS_MANY, 'InvProductImage', 'product_id'),
         );
     }
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('oims', 'ID'),
-            'sku' => Yii::t('oims', 'Sku'),
-            'name' => Yii::t('oims', 'Name'),
-            'short_description' => Yii::t('oims', 'Short Description'),
-            'description' => Yii::t('oims', 'Description'),
-            'is_in_stock' => Yii::t('oims', 'Is In Stock'),
-            'items_in_stock' => Yii::t('oims', 'Items In Stock'),
-            'wholesale_price' => Yii::t('oims', 'Wholesale Price'),
-            'wholesale_special_price' => Yii::t('oims', 'Wholesale Special Price'),
-            'retail_price' => Yii::t('oims', 'Retail Price'),
-            'retail_special_price' => Yii::t('oims', 'Retail Special Price'),
-            'special_price_start' => Yii::t('oims', 'Special Price Start'),
-            'special_price_end' => Yii::t('oims', 'Special Price End'),
-            'manufacturer' => Yii::t('oims', 'Manufacturer'),
-            'last_update_date' => Yii::t('oims', 'Last Update Date'),
-            'is_published' => Yii::t('oims', 'Is Published'),
-            'is_validated' => Yii::t('oims', 'Is Validated'),
-            'supplier_id' => Yii::t('oims', 'Supplier'),
-            'category_id' => Yii::t('oims', 'Category'),
+            'id' => Yii::t('OimsModule.oims', 'ID'),
+            'sku' => Yii::t('OimsModule.oims', 'Sku'),
+            'name' => Yii::t('OimsModule.oims', 'Name'),
+            'short_description' => Yii::t('OimsModule.oims', 'Short Description'),
+            'description' => Yii::t('OimsModule.oims', 'Description'),
+            'is_in_stock' => Yii::t('OimsModule.oims', 'Is In Stock'),
+            'items_in_stock' => Yii::t('OimsModule.oims', 'Items In Stock'),
+            'wholesale_price' => Yii::t('OimsModule.oims', 'Wholesale Price'),
+            'wholesale_special_price' => Yii::t('OimsModule.oims', 'Wholesale Special Price'),
+            'retail_price' => Yii::t('OimsModule.oims', 'Retail Price'),
+            'retail_special_price' => Yii::t('OimsModule.oims', 'Retail Special Price'),
+            'special_price_start' => Yii::t('OimsModule.oims', 'Special Price Start'),
+            'special_price_end' => Yii::t('OimsModule.oims', 'Special Price End'),
+            'manufacturer' => Yii::t('OimsModule.oims', 'Manufacturer'),
+            'last_update_date' => Yii::t('OimsModule.oims', 'Last Update Date'),
+            'is_published' => Yii::t('OimsModule.oims', 'Is Published'),
+            'is_validated' => Yii::t('OimsModule.oims', 'Is Validated'),
+            'supplier_id' => Yii::t('OimsModule.oims', 'Supplier'),
+            'category_id' => Yii::t('OimsModule.oims', 'Category'),
+            'category' => Yii::t('OimsModule.oims', 'Category'),
         );
     }
 
@@ -120,6 +119,15 @@ abstract class BaseInvProduct extends CActiveRecord {
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
         ));
     }
+
+    public function beforeSave() {
+        $this->last_update_date = new CDbExpression('NOW()');
+        return parent::beforeSave();
+    }
+
 }

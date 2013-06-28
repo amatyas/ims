@@ -308,10 +308,11 @@ class TbEditableField extends CWidget {
 
         if (!$this->attribute) {
             throw new CException('Parameter "attribute" should be provided for EditableField');
-        }
-
+        }      
+        
         $originalText = strlen($this->text) ? $this->text : CHtml::value($this->model, $this->attribute);
 
+            
         //if apply set manually to false --> just render text, no js plugin applied
         if ($this->apply === false) {
             $this->text = $originalText;
@@ -353,7 +354,8 @@ class TbEditableField extends CWidget {
                     $this->type = 'textarea';
                 }
             }
-        }
+        } elseif($this->type=='custom')
+            $this->type=null;
 
         /*
           If set this flag to true --> element content will stay empty and value will be rendered to data-value attribute to apply autotext.

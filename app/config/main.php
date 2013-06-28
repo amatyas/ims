@@ -58,6 +58,8 @@ $mainConfig = array(
         'vendor.clevertech.yiibooster.src.widgets.*', // Bootstrap UI
         'vendor.yiiext.fancybox-widget.*', // Fancybox Widget
         'vendor.vitalets.yii-bootstrap-editable.*', // p3media
+        'vendor.z_bodya.galleryManager.*', //gallery
+        'vendor.z_bodya.galleryManager.models.*',
     ),
     'modules' => array(
 // uncomment the following to enable the Gii tool
@@ -77,6 +79,12 @@ $mainConfig = array(
         'oims' => array(
             'class' => 'vendor.gnuheike.oims.OimsModule',
             'defaultController' => 'product',
+            'controllerMap' => array(
+                'gallery' => array(
+                    'class' => 'vendor.z_bodya.galleryManager.GalleryController',
+                    'pageTitle' => 'Gallery administration',
+                ),
+            ),
         ),
         'p3widgets' => array(
             'class' => 'vendor.phundament.p3widgets.P3WidgetsModule',
@@ -102,7 +110,7 @@ $mainConfig = array(
                     'large' => array(
                         'name' => 'Large 1600px',
                         'commands' => array(
-                            'resize' => array(1600, 1600, 2), // Image::AUTO
+                            'resize' => array(1600, 1600, 2),
                             'quality' => '85',
                         ),
                         'type' => 'jpg',
@@ -110,7 +118,7 @@ $mainConfig = array(
                     'medium' => array(
                         'name' => 'Medium 800px',
                         'commands' => array(
-                            'resize' => array(800, 800, 2), // Image::AUTO
+                            'resize' => array(800, 800, 2),
                             'quality' => '85',
                         ),
                         'type' => 'jpg',
@@ -126,7 +134,7 @@ $mainConfig = array(
                     'small' => array(
                         'name' => 'Small 400px',
                         'commands' => array(
-                            'resize' => array(400, 400, 2), // Image::AUTO
+                            'resize' => array(400, 400, 2), 
                             'quality' => '85',
                         ),
                         'type' => 'jpg',
@@ -154,22 +162,19 @@ $mainConfig = array(
                     ),
                     'p3media-ckbrowse' => array(
                         'commands' => array(
-                            'resize' => array(150, 120), // use third parameter for master setting, see Image constants
-#'quality' => 80, // for jpegs
+                            'resize' => array(150, 120), 
                         ),
                         'type' => 'png'
                     ),
                     'p3media-manager' => array(
                         'commands' => array(
-                            'resize' => array(300, 200), // use third parameter for master setting, see Image constants
-#'quality' => 80, // for jpegs
+                            'resize' => array(300, 200), 
                         ),
                         'type' => 'png'
                     ),
                     'p3media-upload' => array(
                         'commands' => array(
-                            'resize' => array(60, 30), // use third parameter for master setting, see Image constants
-#'quality' => 80, // for jpegs
+                            'resize' => array(60, 30),
                         ),
                         'type' => 'png'
                     ),
@@ -258,8 +263,7 @@ $mainConfig = array(
             'errorAction' => 'site/error',
         ),
         'image' => array(
-            'class' => 'vendor.phundament.p3extensions.components.image.CImageComponent',
-            // GD or ImageMagick
+            'class' => 'vendor.z_bodya.yii-image.CImageComponent',
             'driver' => 'GD',
         ),
         'returnUrl' => array(

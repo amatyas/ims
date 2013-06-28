@@ -129,7 +129,7 @@
                     </div>
 
         <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('oims', 'Search')); ?>
+        <?php echo CHtml::submitButton(Yii::t('OimsModule.oims', 'Search')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

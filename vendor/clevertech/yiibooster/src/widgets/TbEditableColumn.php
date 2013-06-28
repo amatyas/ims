@@ -57,8 +57,8 @@ class TbEditableColumn extends TbDataColumn {
                     'attribute' => $this->name,
                     'parentid' => $this->grid->id,
                         )
-        );
-
+        );     
+        
         //if value defined for column --> use it as element text
         if (strlen($this->value)) {
             ob_start();

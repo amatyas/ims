@@ -2,3 +2,6 @@ assets/
 protected/runtime/
 themes/classic/views/
 app/config/local.php
+!/vendor/z_bodya/gallery-manager/assets/
+/www/gallery/
+!/vendor/clevertech/yiibooster/src/assets/

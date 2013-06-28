@@ -2,6 +2,7 @@
 $this->widget('echosen.EChosen', array('target' => 'select')
 );
 ?>
+
 <?php
 $form = $this->beginWidget('TbActiveForm', array(
     'id' => 'inv-product-form',
@@ -9,7 +10,7 @@ $form = $this->beginWidget('TbActiveForm', array(
     'enableClientValidation' => true,
     'htmlOptions' => array(
         'onsubmit' => "return false;",
-        'onkeypress' => " if(event.keyCode == 13){ send_product_form(); } ",
+        'onkeypress' => " if(event.keyCode == 13){ send_product_form(); return false;};  ",
         'action' => Yii::app()->createUrl("/oims/product/update", array('id' => $model->id)),
     )
         )
@@ -21,6 +22,18 @@ echo $form->errorSummary($model);
 
 <fieldset>
     <legend><?php echo $model->name; ?></legend>
+    <?php
+    $this->widget('TbAlert', array(
+        'block' => false, // display a larger alert block?
+        'fade' => true, // use transitions?
+        'closeText' => '&times;', // close link text - if set to false, no close link is displayed
+        'alerts' => array(// configurations per alert type
+            'success' => array('block' => true, 'fade' => true, 'closeText' => '&times;'), // success, info, warning, error or danger
+        )
+    ));
+    ?>
+
+
     <?php echo $form->textFieldRow($model, 'sku', array('hint' => $model->getHint('sku'))); ?>
     <?php echo $form->textFieldRow($model, 'name', array('hint' => $model->getHint('sku'))); ?>
     <?php echo $form->textAreaRow($model, 'short_description', array(), array('hint' => $model->getHint('short_description'))); ?>
@@ -35,7 +48,7 @@ echo $form->errorSummary($model);
         'prepend' => '<i class="icon-calendar"></i>',
         'language' => substr(Yii::app()->language, 0, strpos(Yii::app()->language, '_')),
         'options' => array(
-            'dateFormat' => 'yy-mm-dd'
+            'format' => 'yyyy-mm-dd'
         )
     ));
     ?>
@@ -45,14 +58,14 @@ echo $form->errorSummary($model);
         'prepend' => '<i class="icon-calendar"></i>',
         'language' => substr(Yii::app()->language, 0, strpos(Yii::app()->language, '_')),
         'options' => array(
-            'dateFormat' => 'yy-mm-dd'
+            'format' => 'yyyy-mm-dd'
         )
     ));
     ?>
     <?php echo $form->textFieldRow($model, 'manufacturer', array('hint' => $model->getHint('manufacturer'))); ?>
     <?php echo $form->checkBoxRow($model, 'is_published', array('hint' => $model->getHint('is_published'))); ?>
     <?php echo $form->checkBoxRow($model, 'is_validated', array('hint' => $model->getHint('is_validated'))); ?>   
-    <label for="category"><?php echo Yii::t('oims', 'Category'); ?></label>
+    <label for="category"><?php echo Yii::t('OimsModule.oims', 'Category'); ?></label>
     <?php
     $this->widget(
             'Relation', array(
@@ -65,6 +78,12 @@ echo $form->errorSummary($model);
             'checkAll' => 'all'),
             )
     )
+    ?>
+    <?php
+    $this->widget('GalleryManager', array(
+        'gallery' => $model->galleryBehavior->getGallery(),
+        'controllerRoute' => '/oims/gallery'
+    ));
     ?>
 </fieldset>
 
@@ -79,9 +98,10 @@ echo $form->errorSummary($model);
 
 <div class="form-actions">
     <?php
-    echo CHtml::submitButton(Yii::t('oims', 'Save'), array(
+    echo CHtml::submitButton(Yii::t('OimsModule.oims', 'Save'), array(
         'class' => 'btn btn-primary submit-btn',
-        'onclick' => 'send_product_form();'
+        'onclick' => 'send_product_form();',
+        'id' => uniqid(),
     ));
     ?>
 </div>

@@ -22,6 +22,20 @@ class InvProduct extends BaseInvProduct {
     public function behaviors() {
         return array_merge(
                 parent::behaviors(), array(
+            'galleryBehavior' => array(
+                'class' => 'GalleryBehavior',
+                'idAttribute' => 'id',
+                'versions' => array(
+                    'small' => array(
+                        'centeredpreview' => array(98, 98),
+                    ),
+                    'medium' => array(
+                        'resize' => array(800, null),
+                    )
+                ),
+                'name' => true,
+                'description' => true,
+            )
         ));
     }
 
@@ -36,7 +50,19 @@ class InvProduct extends BaseInvProduct {
     }
 
     public function getHint($name) {
-        return ("help.{$name}" != $help = Yii::t('oims', "help.{$name}")) ? $help : null;
+        return '';//("help.{$name}" != $help = Yii::t('oims.{$name}', "help.")) ? $help : null;
+    }
+
+    public function isAttributeSafe($attribute) {
+        return ('discount' == $attribute || 'category' == $attribute ) ? true : parent::isAttributeSafe($attribute);
+    }
+
+    public function getDiscount() {
+        return 1;
+    }
+
+    public function getCategoryToString() {
+        return isset($this->category->name) ? $this->category->name : 'Empty';
     }
 
 }

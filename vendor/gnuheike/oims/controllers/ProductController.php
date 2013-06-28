@@ -12,10 +12,19 @@ class ProductController extends Controller {
         );
     }
 
+    public function actions() {
+        return array(
+            'toggle' => array(
+                'class' => 'bootstrap.actions.TbToggleAction',
+                'modelName' => 'InvProduct',
+            )
+        );
+    }
+
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle','categories'),
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -50,6 +59,7 @@ class ProductController extends Controller {
     public function actionCreate() {
         $model = new InvProduct;
         $model->scenario = $this->scenario;
+        $model->supplier_id = Yii::app()->user->id;
 
         $this->performAjaxValidation($model, 'inv-product-form');
 
@@ -58,10 +68,11 @@ class ProductController extends Controller {
 
             try {
                 if ($model->save()) {
+                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product created.'));
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'id' => $model->id));
+                        $this->redirect(array('update', 'id' => $model->id));
                     }
                 }
             } catch (Exception $e) {
@@ -70,8 +81,10 @@ class ProductController extends Controller {
         } elseif (isset($_GET['InvProduct'])) {
             $model->attributes = $_GET['InvProduct'];
         }
-
-        $this->render('create', array('model' => $model));
+        if (Yii::app()->request->isAjaxRequest)
+            $this->renderPartial('_form', array('model' => $model), false, true);
+        else
+            $this->render('create', array('model' => $model));
     }
 
     public function actionUpdate($id) {
@@ -84,12 +97,14 @@ class ProductController extends Controller {
             $model->attributes = $_POST['InvProduct'];
 
             try {
-                if ($model->save() && !Yii::app()->request->isAjaxRequest) {
-                    if (isset($_GET['returnUrl'])) {
-                        $this->redirect($_GET['returnUrl']);
-                    } else {
-                        $this->redirect(array('view', 'id' => $model->id));
-                    }
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product updated.'));
+                    if (!Yii::app()->request->isAjaxRequest)
+                        if (isset($_GET['returnUrl'])) {
+                            $this->redirect($_GET['returnUrl']);
+                        } else {
+                            $this->redirect(array('view', 'id' => $model->id));
+                        }
                 }
             } catch (Exception $e) {
                 $model->addError('id', $e->getMessage());
@@ -125,7 +140,7 @@ class ProductController extends Controller {
             }
         }
         else
-            throw new CHttpException(400, Yii::t('oims', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400, Yii::t('OimsModule.oims', 'Invalid request. Please do not repeat this request again.'));
     }
 
     public function actionIndex() {
@@ -147,7 +162,7 @@ class ProductController extends Controller {
     public function loadModel($id) {
         $model = InvProduct::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('oims', 'The requested page does not exist.'));
+            throw new CHttpException(404, Yii::t('OimsModule.oims', 'The requested page does not exist.'));
         return $model;
     }
 
@@ -156,6 +171,11 @@ class ProductController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionCategories() {
+        echo json_encode(CHtml::listData(InvProductCategory::model()->findAll(), 'id', 'name'));
+        Yii::app()->end();
     }
 
 }

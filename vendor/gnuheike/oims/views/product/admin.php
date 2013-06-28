@@ -1,5 +1,5 @@
 <?php
-$this->breadcrumbs[] = Yii::t('oims', 'Stock');
+$this->breadcrumbs[] = Yii::t('OimsModule.oims', 'Stock');
 Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('oims') . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin.js'));
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ return false;
 
 <?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
 <h1>
-    <?php echo Yii::t('oims', 'Stock'); ?> <small><?php echo Yii::t('oims', 'Manage'); ?></small>
+    <?php echo Yii::t('OimsModule.oims', 'Stock'); ?> <small><?php echo Yii::t('OimsModule.oims', 'Manage'); ?></small>
 </h1>
 
 <div class="row-fluid">
