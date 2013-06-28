@@ -1,4 +1,4 @@
-assets/
+/www/assets
 protected/runtime/
 themes/classic/views/
 app/config/local.php
