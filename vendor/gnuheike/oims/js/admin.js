@@ -1,5 +1,5 @@
 $(function() {
-    $('body').delegate('table tr.product-grid-tr-trigger', 'click', function() {
+    $('body').delegate('table tr.product-grid-tr-trigger', 'dblclick', function() {
         load_crud_product_form($(this).attr('data-update-url'));
     });
 });

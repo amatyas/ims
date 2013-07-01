@@ -15,8 +15,6 @@
  * @property string $wholesale_special_price
  * @property string $retail_price
  * @property string $retail_special_price
- * @property string $special_price_start
- * @property string $special_price_end
  * @property string $manufacturer
  * @property string $last_update_date
  * @property integer $is_published
@@ -44,12 +42,15 @@ abstract class BaseInvProduct extends CActiveRecord {
         return array_merge(
                 parent::rules(), array(
             array('sku, name, description, is_in_stock, wholesale_price, retail_price, manufacturer, supplier_id', 'required'),
-            array('short_description, items_in_stock, wholesale_special_price, retail_special_price, special_price_start, special_price_end, is_published, is_validated, category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('sku', 'unique', 'message' => Yii::t('oims', 'This sku already exists.')),
+            array('short_description, items_in_stock, wholesale_special_price, retail_special_price, is_published, is_validated, category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('items_in_stock, wholesale_price, retail_price, wholesale_special_price, retail_special_price', 'numerical', 'min' => 0),
             array('is_in_stock, items_in_stock, is_published, is_validated, supplier_id, category_id', 'numerical', 'integerOnly' => true),
+            array('wholesale_price, retail_price, wholesale_special_price, retail_special_price', 'type', 'type' => 'float'),
             array('sku, name, manufacturer', 'length', 'max' => 255),
-            array('wholesale_price, wholesale_special_price, retail_price, retail_special_price', 'length', 'max' => 15),
-            array('short_description, special_price_start, special_price_end', 'safe'),
-            array('id, sku, name, short_description, description, is_in_stock, items_in_stock, wholesale_price, wholesale_special_price, retail_price, retail_special_price, special_price_start, special_price_end, manufacturer, last_update_date, is_published, is_validated, supplier_id, category_id', 'safe', 'on' => 'search'),
+            array('wholesale_price, retail_special_price', 'length', 'max' => 15),
+            array('short_description', 'safe'),
+            array('id, sku, name, short_description, description, is_in_stock, items_in_stock, wholesale_price, wholesale_special_price, retail_price, retail_special_price, manufacturer, last_update_date, is_published, is_validated, supplier_id, category_id', 'safe', 'on' => 'search'),
                 )
         );
     }
@@ -59,7 +60,7 @@ abstract class BaseInvProduct extends CActiveRecord {
                 parent::behaviors(), array(
             'savedRelated' => array(
                 'class' => 'gii-template-collection.components.CSaveRelationsBehavior'
-            ),           
+            ),
         ));
     }
 
@@ -82,8 +83,6 @@ abstract class BaseInvProduct extends CActiveRecord {
             'wholesale_special_price' => Yii::t('OimsModule.oims', 'Wholesale Special Price'),
             'retail_price' => Yii::t('OimsModule.oims', 'Retail Price'),
             'retail_special_price' => Yii::t('OimsModule.oims', 'Retail Special Price'),
-            'special_price_start' => Yii::t('OimsModule.oims', 'Special Price Start'),
-            'special_price_end' => Yii::t('OimsModule.oims', 'Special Price End'),
             'manufacturer' => Yii::t('OimsModule.oims', 'Manufacturer'),
             'last_update_date' => Yii::t('OimsModule.oims', 'Last Update Date'),
             'is_published' => Yii::t('OimsModule.oims', 'Is Published'),
@@ -108,8 +107,6 @@ abstract class BaseInvProduct extends CActiveRecord {
         $criteria->compare('t.wholesale_special_price', $this->wholesale_special_price, true);
         $criteria->compare('t.retail_price', $this->retail_price, true);
         $criteria->compare('t.retail_special_price', $this->retail_special_price, true);
-        $criteria->compare('t.special_price_start', $this->special_price_start, true);
-        $criteria->compare('t.special_price_end', $this->special_price_end, true);
         $criteria->compare('t.manufacturer', $this->manufacturer, true);
         $criteria->compare('t.last_update_date', $this->last_update_date, true);
         $criteria->compare('t.is_published', $this->is_published);

@@ -175,7 +175,7 @@ class TbInputHorizontal extends TbInput
 	 */
 	protected function textField()
 	{
-		echo $this->getLabel();
+		echo $this->getLabel();                
 		echo '<div class="controls">';
 		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);

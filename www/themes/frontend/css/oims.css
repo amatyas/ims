@@ -13,3 +13,31 @@ div.filter-container input[type=text] {
     margin: 0 0;
 }
 
+
+i.icon-no-sign-oims {
+    background-image: url("img/no.png");
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+i.icon-yes-sign-oims {
+    background-image: url("img/yes.png");
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+form input.error{
+    background: #FEE;
+    border-color: #C00;
+    background: url(http://phundament/www/themes/frontend/css/img/no.png) 95% no-repeat;
+}
+
+form input.success {
+    background: #A9EF9D;
+    border-color: #50BE4A;
+    background: url(http://phundament/www/themes/frontend/css/img/yes.png) 95% no-repeat;
+}

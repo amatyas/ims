@@ -24,7 +24,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle','categories'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories','updateProductGrid'),
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -87,7 +87,7 @@ class ProductController extends Controller {
             $this->render('create', array('model' => $model));
     }
 
-    public function actionUpdate($id) {
+    public function actionUpdate($id) {        
         $model = $this->loadModel($id);
         $model->scenario = $this->scenario;
 
@@ -117,10 +117,22 @@ class ProductController extends Controller {
             $this->render('update', array('model' => $model,));
     }
 
-    public function actionEditableSaver() {
-        Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
-        $es = new EditableSaver('InvProduct');  // classname of model to be updated
-        $es->update();
+    public function actionUpdateProductGrid() {
+        $es = new EditableSaver('InvProduct');
+        $es->onBeforeUpdate = function($event) {
+                    if (Yii::app()->user->isGuest) {
+                        $event->sender->error('You are not allowed to update data');
+                    }
+                };
+
+        try {
+            $es->update();
+        } catch (CException $e) {
+            echo CJSON::encode(array('success' => false, 'msg' => $e->getMessage()));
+            return;
+        }
+
+        echo CJSON::encode(array('success' => true));
     }
 
     public function actionDelete($id) {

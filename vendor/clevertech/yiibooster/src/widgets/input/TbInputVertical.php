@@ -207,7 +207,7 @@ class TbInputVertical extends TbInput
 	 * @return string the rendered content
 	 */
 	protected function textField()
-	{
+	{            
 		echo $this->getLabel();
 		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);

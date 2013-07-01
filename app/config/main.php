@@ -60,6 +60,7 @@ $mainConfig = array(
         'vendor.vitalets.yii-bootstrap-editable.*', // p3media
         'vendor.z_bodya.galleryManager.*', //gallery
         'vendor.z_bodya.galleryManager.models.*',
+        'vendor.gnuheike.notificator.*'
     ),
     'modules' => array(
 // uncomment the following to enable the Gii tool

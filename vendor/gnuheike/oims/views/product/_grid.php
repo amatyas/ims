@@ -16,91 +16,92 @@ $this->widget('TbExtendedSummaryGrid', array(
     'columns' => array(
         array(
             'name' => 'sku',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
                 'type' => 'text',
             )
         ),
         array(
-            'class' => 'bootstrap.widgets.TbToggleColumn',
-            'toggleAction' => 'toggle',
-            'name' => 'is_in_stock',
+            'name' => 'name',
+            'class' => 'TbEditableColumnOims',
+            'editable' => array(
+                'type' => 'text',
+            )
         ),
         array(
-            'name' => 'items_in_stock',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name' => 'manufacturer',
+            'class' => 'TbEditableColumnOims',
+            'editable' => array(
+                'type' => 'text',
+            )
+        ),
+        array(
+            'name' => 'category_id',
+            'value' => '$data->categoryToString',
+            'class' => 'TbEditableColumnOims',
+            'editable' => array(
+                'type' => 'select',
+                'source' => $this->createUrl('categories')
+            )
+        ),
+        array(
+            'name' => 'wholesale_price',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
                 'type' => 'text',
             )
         ),
         array(
             'name' => 'retail_price',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'type' => 'text',
-            )
-        ),
-          array(
-            'name' => 'retail_special_price',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
                 'type' => 'text',
             )
         ),
         array(
-            'name' => 'wholesale_price',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name' => 'retail_special_price',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
                 'type' => 'text',
             )
         ),
         array(
             'name' => 'wholesale_special_price',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
                 'type' => 'text',
             )
-        ),      
-        /*
+        ),
         array(
-            'name' => 'special_price_start',
-            //'header' => 'name',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'class' => 'TbToggleColumnOims',
+            'toggleAction' => 'toggle',
+            'name' => 'is_in_stock',
+        ),
+        array(
+            'name' => 'items_in_stock',
+            'class' => 'TbEditableColumnOims',
             'editable' => array(
-                'type' => 'date',
-                'format' => 'yyyy-mm-dd',
-                'viewformat' => 'yyyy-mm-dd',
-                'placement' => 'bottom'
+                'type' => 'text',
             )
         ),
         array(
-            'name' => 'special_price_end',
-            //'header' => 'name',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'type' => 'date',
-                'format' => 'yyyy-mm-dd',
-                'viewformat' => 'yyyy-mm-dd',
-                'placement' => 'bottom'
-            )         
-         
+            'class' => 'TbToggleColumnOims',
+            'toggleAction' => 'toggle',
+            'name' => 'is_published',
+        ),/*
+        array(
+            'name' => 'details',
+            'header' => '',
+            'type' => 'raw',
+            'value' => 'CHtml::link(
+          "details",
+          "",
+          array(
+          \'style\'=>\'cursor: pointer; text-decoration: underline;\',
+          \'onclick\'=>\'{load_crud_product_form($(this).parent().parent().attr("data-update-url"));}\'
+          )
+          );',
         ),*/
-        array(
-            'name' => 'manufacturer',          
-            'class' => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'type' => 'select',
-            )
-        ),
-        array(
-            'name' => 'category',
-            'value' => '$data->categoryToString',
-            'class' => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'type' => 'select',
-                'source' => $this->createUrl('categories')
-            )
-        ),
         array(
             'class' => 'TbButtonColumn',
             'template' => "{delete}",
