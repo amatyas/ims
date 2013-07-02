@@ -137,7 +137,7 @@ $mainConfig = array(
                     'small' => array(
                         'name' => 'Small 400px',
                         'commands' => array(
-                            'resize' => array(400, 400, 2), 
+                            'resize' => array(400, 400, 2),
                             'quality' => '85',
                         ),
                         'type' => 'jpg',
@@ -165,13 +165,13 @@ $mainConfig = array(
                     ),
                     'p3media-ckbrowse' => array(
                         'commands' => array(
-                            'resize' => array(150, 120), 
+                            'resize' => array(150, 120),
                         ),
                         'type' => 'png'
                     ),
                     'p3media-manager' => array(
                         'commands' => array(
-                            'resize' => array(300, 200), 
+                            'resize' => array(300, 200),
                         ),
                         'type' => 'png'
                     ),
@@ -356,6 +356,31 @@ $mainConfig = array(
             'transportType' => 'php',
             'logging' => true,
             'dryRun' => false
+        ),
+        'ePdf' => array(
+            'class' => 'vendor.bolares.yii-pdf.EYiiPdf',
+            'params' => array(
+                'mpdf' => array(
+                    'librarySourcePath' => 'vendor.mpdf.*',
+                    'constants' => array(
+                        '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
+                    ),
+                    'class' => 'mpdf', // the literal class filename to be loaded from the vendors folder
+                    'defaultParams' => array(// More info: http://mpdf1.com/manual/index.php?tid=184
+                        'mode' => '', //  This parameter specifies the mode of the new document.
+                        'format' => 'A4', // format A4, A5, ...
+                        'default_font_size' => 10, // Sets the default document font size in points (pt)
+                        'default_font' => 'Helvetica', // Sets the default font-family for the new document.
+                        'mgl' => 15, // margin_left. Sets the page margins for the new document.
+                        'mgr' => 15, // margin_right
+                        'mgt' => 16, // margin_top
+                        'mgb' => 16, // margin_bottom
+                        'mgh' => 9, // margin_header
+                        'mgf' => 9, // margin_footer
+                        'orientation' => 'P', // landscape or portrait orientation
+                    )
+                ),
+            ),
         ),
     ),
     // application-level parameters that can be accessed

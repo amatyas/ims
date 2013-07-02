@@ -24,7 +24,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid','exportCsv','exportPdf'),
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -170,6 +170,20 @@ class ProductController extends Controller {
         }
 
         $this->render('admin', array('model' => $model,));
+    }
+
+    public function actionExportCsv() {
+        Yii::import('vendor.nsbucky.csvexport.ECSVExport');
+        $csv = new ECSVExport(new CActiveDataProvider('InvProduct'));
+        $content = $csv->toCSV();
+        Yii::app()->getRequest()->sendFile('export.csv', $content, "text/csv", false);
+        exit();
+    }
+    
+    public function actionExportPdf() {
+        Yii::import('vendor.gnuheike.pdfexport.PdfExport');
+        $pdfExporter = new PdfExport();
+        $pdfExporter->getPdfFile(new CActiveDataProvider('InvProduct'));        
     }
 
     public function loadModel($id) {

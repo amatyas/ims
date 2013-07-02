@@ -18,6 +18,16 @@
                         "onclick" => "load_crud_product_form('" . Yii::app()->createUrl('/oims/product/create') . "')",
                     ),                    
                 ));
+                $this->widget("bootstrap.widgets.TbButton", array(
+                    "label" => Yii::t("crud", "Download CSV"),
+                    "icon" => "icon-download",
+                    "url" => $this->createUrl('exportCsv'),                   
+                ));
+                $this->widget("bootstrap.widgets.TbButton", array(
+                    "label" => Yii::t("crud", "Download PDF"),
+                    "icon" => "icon-download",
+                    "url" => $this->createUrl('exportPdf'),                   
+                ));
                 break;
             case "view":
                 $this->widget("bootstrap.widgets.TbButton", array(
