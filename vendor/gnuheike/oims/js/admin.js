@@ -1,10 +1,20 @@
+var oims_loaded_url = null;
+
 $(function() {
-    $('body').delegate('table tr.product-grid-tr-trigger', 'dblclick', function() {
+    $('body').delegate('table tr.product-grid-tr-trigger', 'click', function() {
         load_crud_product_form($(this).attr('data-update-url'));
     });
 });
 
+
+
 function load_crud_product_form(url) {
+    if (url === oims_loaded_url)
+        return false;
+    else
+        oims_loaded_url = url;
+
+
     oims_toggle_loader();
     var request = jQuery.ajax({
         'url': url,
@@ -49,5 +59,4 @@ function send_product_form() {
         },
         dataType: 'html'
     });
-
 }
