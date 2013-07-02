@@ -6,8 +6,6 @@ $(function() {
     });
 });
 
-
-
 function load_crud_product_form(url) {
     if (url === oims_loaded_url)
         return false;
@@ -59,4 +57,11 @@ function send_product_form() {
         },
         dataType: 'html'
     });
+}
+
+function oims_aplly_filter(data) {
+    var column = data[0];
+    var value = data[1];
+    $('.filter-container #InvProduct_' + column).val(value);
+    $.fn.yiiGridView.update('inv-product-grid',{'data':'InvProduct['+column+']='+value});
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories','updateProductGrid'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid'),
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -87,7 +87,7 @@ class ProductController extends Controller {
             $this->render('create', array('model' => $model));
     }
 
-    public function actionUpdate($id) {        
+    public function actionUpdate($id) {
         $model = $this->loadModel($id);
         $model->scenario = $this->scenario;
 
@@ -98,7 +98,8 @@ class ProductController extends Controller {
 
             try {
                 if ($model->save()) {
-                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product updated.'));
+                    $link = CHtml::link('View', '#', array('onclick' => "oims_aplly_filter(['sku','{$model->sku}']);return false;"));
+                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product updated. {link}', array('{link}' => $link)));
                     if (!Yii::app()->request->isAjaxRequest)
                         if (isset($_GET['returnUrl'])) {
                             $this->redirect($_GET['returnUrl']);
