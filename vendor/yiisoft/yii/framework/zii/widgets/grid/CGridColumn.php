@@ -39,7 +39,7 @@ abstract class CGridColumn extends CComponent
 	/**
 	 * @var string the header cell text. Note that it will not be HTML-encoded.
 	 */
-	public $header;
+	public $header; 
 	/**
 	 * @var string the footer cell text. Note that it will not be HTML-encoded.
 	 */

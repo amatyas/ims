@@ -361,7 +361,7 @@ $mainConfig = array(
             'class' => 'vendor.bolares.yii-pdf.EYiiPdf',
             'params' => array(
                 'mpdf' => array(
-                    'librarySourcePath' => 'vendor.mpdf.*',
+                    'librarySourcePath' => 'vendor.mpdf.*', 
                     'constants' => array(
                         '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
                     ),

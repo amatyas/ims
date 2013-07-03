@@ -11,7 +11,7 @@ class OimsModule extends CWebModule {
             'oims.components.*',
             'oims.widgets.*',
         ));
-    }
+    } 
 
     public function beforeControllerAction($controller, $action) {
         if (parent::beforeControllerAction($controller, $action)) {

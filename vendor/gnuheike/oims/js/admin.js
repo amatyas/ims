@@ -4,7 +4,78 @@ $(function() {
     $('body').delegate('table tr.product-grid-tr-trigger', 'click', function() {
         load_crud_product_form($(this).attr('data-update-url'));
     });
+
+    $('#ma_quick_actions').next().find('a').click(multirowActions);
 });
+
+function multirowActions() {
+    var data = $(this).attr('data-modify').split('__');
+    if (data.length < 1) {
+        console.log('Unknown data-modify attribute. Must contain valid handler. ' + data.length);
+        return false;
+    }
+
+    var checkboxes = jQuery('#inv-product-grid .checkbox-column :checkbox:checked[name!=inv-product-grid_c0_all]');
+    if (checkboxes.length < 1) {
+        noty({
+            text: 'You have not selected any row.',
+            'layout': 'topRight',
+            type: 'alert'
+        });
+        return false;
+    }
+
+    var sendData = {
+        'action': data[0],
+        'params': {}
+    };
+
+    for (var j = 0; j < checkboxes.length; j++) {
+        itemData = {};
+        if (data.length > 2)
+            for (var i = 1; i < data.length; i = i + 2)
+                itemData[data[i]] = data[i + 1];
+        else
+            itemData = true;
+
+        sendData['params'][jQuery(checkboxes[j]).val()] = itemData;
+    }
+
+    console.log(sendData);
+
+    oims_toggle_multi_loader();
+    var request = jQuery.ajax({
+        'url': multirow_edit_url,
+        'data': sendData,
+        'type': 'post',
+        'cache': false
+    });
+
+    request.complete(function() {
+        oims_toggle_multi_loader();
+    });
+
+    request.success(function() {
+        $.fn.yiiGridView.update('inv-product-grid');
+        noty({
+            text: 'Success',
+            'layout': 'topRight',
+            type: 'info'
+        });
+    });
+
+    request.error(function(jqXHR) {
+        noty({
+            text: jqXHR.responseText,
+            'layout': 'topRight',
+            type: 'error'
+        });
+        console.log(jqXHR);
+    });
+
+
+    return true;
+}
 
 function load_crud_product_form(url) {
     if (url === oims_loaded_url)
@@ -33,6 +104,10 @@ function load_crud_product_form(url) {
     request.error(function(jqXHR, textStatus) {
         console.log(jqXHR);
     });
+}
+function oims_toggle_multi_loader() {
+    $('#toolbarHandler .spin').toggle();
+    $('#toolbarHandler .content').toggle();
 }
 
 function oims_toggle_loader() {
@@ -63,5 +138,5 @@ function oims_aplly_filter(data) {
     var column = data[0];
     var value = data[1];
     $('.filter-container #InvProduct_' + column).val(value);
-    $.fn.yiiGridView.update('inv-product-grid',{'data':'InvProduct['+column+']='+value});
+    $.fn.yiiGridView.update('inv-product-grid', {'data': 'InvProduct[' + column + ']=' + value});
 }

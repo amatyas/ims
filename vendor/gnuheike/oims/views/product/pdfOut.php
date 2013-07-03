@@ -1,7 +1,7 @@
 <div class="CSSTableGenerator">
     <table>
         <thead>
-            <tr>
+            <tr> 
                 <?php foreach ($array[0] as $item): ?>
                     <td><?php echo $item; ?></td>
                 <?php endforeach; ?>

@@ -22,7 +22,7 @@ return false;
 </h1>
 
 <div class="row-fluid">
-
+ 
     <div class="span9" id="oims-grid">
         <?php echo $this->renderPartial('_grid', array('model' => $model)); ?>
 

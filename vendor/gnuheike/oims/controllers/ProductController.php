@@ -6,6 +6,15 @@ class ProductController extends Controller {
     public $defaultAction = "admin";
     public $scenario = "crud";
 
+    public function behaviors() {
+        return array_merge(
+                parent::behaviors(), array(
+            'eexcelview' => array(
+                'class' => 'vendor.zen.EExcelBehavior.EExcelBehavior',
+            ),
+        ));
+    }
+
     public function filters() {
         return array(
             'accessControl',
@@ -24,7 +33,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid','exportCsv','exportPdf'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid', 'exportCsv', 'exportPdf','exportXls','multiedit'),
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -179,11 +188,20 @@ class ProductController extends Controller {
         Yii::app()->getRequest()->sendFile('export.csv', $content, "text/csv", false);
         exit();
     }
-    
+
     public function actionExportPdf() {
         Yii::import('vendor.gnuheike.pdfexport.PdfExport');
         $pdfExporter = new PdfExport();
-        $pdfExporter->getPdfFile(new CActiveDataProvider('InvProduct'));        
+        $pdfExporter->getPdfFile(new CActiveDataProvider('InvProduct'));
+    }
+
+    public function actionExportXls() {
+        Yii::import('vendor.zen.EExcelBehavior.*');
+        $criteria = new CDbCriteria;
+        $criteria->limit = 500;
+        $models = InvProduct::model()->findAll($criteria);
+        EExcelView::$phpExcelPathAlias = 'vendor.codeplex.phpexcel.Classes.PHPExcel';
+        $this->toExcel($models);        
     }
 
     public function loadModel($id) {
@@ -203,6 +221,27 @@ class ProductController extends Controller {
     public function actionCategories() {
         echo json_encode(CHtml::listData(InvProductCategory::model()->findAll(), 'id', 'name'));
         Yii::app()->end();
+    }
+    
+    public function actionMultiedit() {
+        if (empty($_POST)||!isset($_POST['action']))
+            throw new CHttpException(404);
+        
+        $action = $_POST['action'];
+        $data = $_POST['params'];
+        
+        if ('delete'==$action) {
+            $id = array_keys($data);
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition('id', $id);
+            InvProduct::model()->deleteAll($criteria);
+        } elseif('modify'==$action) {
+            foreach ($data as $id => $params) {
+                $model = InvProduct::model()->findByPk($id);
+                $model->setAttributes($params);
+                $model->save();
+            }
+        }
     }
 
 }

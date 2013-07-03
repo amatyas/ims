@@ -15,6 +15,12 @@ $this->widget('TbExtendedSummaryGrid', array(
     ),
     'columns' => array(
         array(
+            'class' => 'CCheckBoxColumn',
+             'selectableRows' => '2',
+            'checked' => 'false',
+            
+        ), 
+        array(
             'name' => 'sku',
             'class' => 'TbEditableColumnOims',
             'editable' => array(
@@ -88,12 +94,12 @@ $this->widget('TbExtendedSummaryGrid', array(
             'class' => 'TbToggleColumnOims',
             'toggleAction' => 'toggle',
             'name' => 'is_published',
-        ),/*
-        array(
-            'name' => 'details',
-            'header' => '',
-            'type' => 'raw',
-            'value' => 'CHtml::link(
+        ), /*
+          array(
+          'name' => 'details',
+          'header' => '',
+          'type' => 'raw',
+          'value' => 'CHtml::link(
           "details",
           "",
           array(
@@ -101,7 +107,7 @@ $this->widget('TbExtendedSummaryGrid', array(
           \'onclick\'=>\'{load_crud_product_form($(this).parent().parent().attr("data-update-url"));}\'
           )
           );',
-        ),*/
+          ), */
         array(
             'class' => 'TbButtonColumn',
             'template' => "{delete}",

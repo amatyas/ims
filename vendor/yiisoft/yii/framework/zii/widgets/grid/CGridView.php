@@ -468,7 +468,7 @@ class CGridView extends CBaseListView
 	public function renderTableHeader()
 	{
 		if(!$this->hideHeader)
-		{
+		{ 
 			echo "<thead>\n";
 
 			if($this->filterPosition===self::FILTER_POS_HEADER)

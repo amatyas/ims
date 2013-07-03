@@ -233,7 +233,7 @@ class TbButton extends CWidget
 		if (!isset($this->htmlOptions['id'])) {
 			$this->htmlOptions['id'] = $this->getId();
 		}
-
+                                
 		if (isset($this->toggle)) {
 			$this->htmlOptions['data-toggle'] = 'button';
 		}
@@ -320,7 +320,7 @@ class TbButton extends CWidget
 				return CHtml::button($this->label, $this->htmlOptions);
 
 			default:
-			case self::BUTTON_LINK:
+			case self::BUTTON_LINK:                                
 				return CHtml::link($this->label, $this->url, $this->htmlOptions);
 		}
 	}

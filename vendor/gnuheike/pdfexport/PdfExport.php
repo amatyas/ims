@@ -12,7 +12,7 @@
  */
 class PdfExport {
 
-    const PDF = 'pdf';
+    const PDF = 'pdf'; 
 
     public function getPdfFile(CActiveDataProvider $dataProvider) {
         $dataProvider->totalItemCount = 200;

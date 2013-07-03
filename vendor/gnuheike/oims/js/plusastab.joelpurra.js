@@ -29,7 +29,7 @@ var JoelPurra = JoelPurra || {};
         key: 13
     };
 
-    var options = $.extend(true, {}, internalDefaults);
+    var options = $.extend(true, {}, internalDefaults); 
 
     var enablePlusAsTab = ".plus-as-tab, [data-plus-as-tab=true]";
     var disablePlusAsTab = ".disable-plus-as-tab, [data-plus-as-tab=false]";
