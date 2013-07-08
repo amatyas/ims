@@ -65,4 +65,47 @@ class InvProduct extends BaseInvProduct {
         return isset($this->category->name) ? $this->category->name : 'Empty';
     }
 
+    public function afterFind() {
+        $this->checkAccess();
+        return parent::afterFind();
+    }
+    
+    public function checkAccess() {
+        if (Yii::app()->user->isSuperuser || $this->supplier_id==Yii::app()->user->id)
+            return true;
+  
+        throw new CHttpException(404, 'You are not authorized to view this product!');
+    }
+    
+    public function search() {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('t.sku', $this->sku, true);
+        $criteria->compare('t.name', $this->name, true);
+        $criteria->compare('t.short_description', $this->short_description, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.is_in_stock', $this->is_in_stock);
+        $criteria->compare('t.items_in_stock', $this->items_in_stock);
+        $criteria->compare('t.wholesale_price', $this->wholesale_price, true);
+        $criteria->compare('t.wholesale_special_price', $this->wholesale_special_price, true);
+        $criteria->compare('t.retail_price', $this->retail_price, true);
+        $criteria->compare('t.retail_special_price', $this->retail_special_price, true);
+        $criteria->compare('t.manufacturer', $this->manufacturer, true);
+        $criteria->compare('t.last_update_date', $this->last_update_date, true);
+        $criteria->compare('t.is_published', $this->is_published);
+        $criteria->compare('t.is_validated', $this->is_validated);
+        //$criteria->compare('t.supplier_id', $this->supplier_id);
+        $criteria->compare('t.category_id', $this->category_id);
+              
+        if (!Yii::app()->user->isSuperuser)
+            $criteria->compare('t.supplier_id', Yii::app()->user->id);
+        
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+    }
 }

@@ -33,11 +33,16 @@ i.icon-yes-sign-oims {
 form input.error{
     background: #FEE;
     border-color: #C00;
-    background: url(http://phundament/www/themes/frontend/css/img/no.png) 95% no-repeat;
+    background: url(img/no.png) 95% no-repeat;
 }
 
 form input.success {
     background: #A9EF9D;
     border-color: #50BE4A;
-    background: url(http://phundament/www/themes/frontend/css/img/yes.png) 95% no-repeat;
+    background: url(img/yes.png) 95% no-repeat;
+}
+
+.btn-group .btn {
+    margin-left: 5px;
+    border-radius: 4px !important;
 }

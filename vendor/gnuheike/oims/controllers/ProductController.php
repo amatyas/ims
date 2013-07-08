@@ -33,7 +33,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'toggle', 'categories', 'updateProductGrid', 'exportCsv', 'exportPdf','exportXls','multiedit'),
+                //'actions' => '*',
                 'roles' => array('Product.*'),
             ),
             array('deny',
@@ -44,16 +44,7 @@ class ProductController extends Controller {
 
     public function beforeAction($action) {
         parent::beforeAction($action);
-        // map identifcationColumn to id
-        if (!isset($_GET['id']) && isset($_GET['id'])) {
-            $model = InvProduct::model()->find('id = :id', array(
-                ':id' => $_GET['id']));
-            if ($model !== null) {
-                $_GET['id'] = $model->id;
-            } else {
-                throw new CHttpException(400);
-            }
-        }
+        // map identifcationColumn to id        
         if ($this->module !== null) {
             $this->breadcrumbs[$this->module->Id] = array('/' . $this->module->Id);
         }
@@ -181,27 +172,47 @@ class ProductController extends Controller {
         $this->render('admin', array('model' => $model,));
     }
 
+    private function getUserProductProvider() {
+        $provider = new CActiveDataProvider('InvProduct');
+        $provider->criteria = $this->getUserProductCriteria();
+        $provider->pagination = false;
+        return $provider;
+    }
+
+    private function getUserProductCriteria() {
+        $criteria = new CDbCriteria;
+        $criteria->select = 'sku, name, short_description, description, is_in_stock, items_in_stock, wholesale_price, wholesale_special_price, retail_price, 
+            retail_special_price, manufacturer, last_update_date, is_published, category_id';
+        if (!Yii::app()->user->isSuperuser)
+            $criteria->addColumnCondition(array('supplier_id' => Yii::app()->user->id));
+        return $criteria;
+    }
+
     public function actionExportCsv() {
         Yii::import('vendor.nsbucky.csvexport.ECSVExport');
-        $csv = new ECSVExport(new CActiveDataProvider('InvProduct'));
+        $csv = new ECSVExport($this->getUserProductProvider());
         $content = $csv->toCSV();
         Yii::app()->getRequest()->sendFile('export.csv', $content, "text/csv", false);
-        exit();
     }
 
     public function actionExportPdf() {
         Yii::import('vendor.gnuheike.pdfexport.PdfExport');
         $pdfExporter = new PdfExport();
-        $pdfExporter->getPdfFile(new CActiveDataProvider('InvProduct'));
+        $pdfExporter->getPdfFile($this->getUserProductProvider());
     }
 
     public function actionExportXls() {
         Yii::import('vendor.zen.EExcelBehavior.*');
-        $criteria = new CDbCriteria;
-        $criteria->limit = 500;
-        $models = InvProduct::model()->findAll($criteria);
         EExcelView::$phpExcelPathAlias = 'vendor.codeplex.phpexcel.Classes.PHPExcel';
-        $this->toExcel($models);        
+        $this->toExcel($this->getUserProductProvider(), array(
+            'sku', 'name', 'short_description',
+            'description' => array(
+                'name' => 'description',
+                'type' => 'raw'
+            ),
+            'is_in_stock', 'items_in_stock', 'wholesale_price', 'wholesale_special_price', 'retail_price', 'retail_special_price', 'manufacturer',
+            'last_update_date', 'is_published', 'category_id'
+        ));
     }
 
     public function loadModel($id) {
@@ -222,26 +233,39 @@ class ProductController extends Controller {
         echo json_encode(CHtml::listData(InvProductCategory::model()->findAll(), 'id', 'name'));
         Yii::app()->end();
     }
-    
+
     public function actionMultiedit() {
-        if (empty($_POST)||!isset($_POST['action']))
+        if (empty($_POST) || !isset($_POST['action']))
             throw new CHttpException(404);
-        
+
         $action = $_POST['action'];
         $data = $_POST['params'];
-        
-        if ('delete'==$action) {
+
+        if ('delete' == $action) {
             $id = array_keys($data);
             $criteria = new CDbCriteria;
             $criteria->addInCondition('id', $id);
             InvProduct::model()->deleteAll($criteria);
-        } elseif('modify'==$action) {
+        } elseif ('modify' == $action) {
             foreach ($data as $id => $params) {
                 $model = InvProduct::model()->findByPk($id);
                 $model->setAttributes($params);
                 $model->save();
             }
         }
+    }
+
+    public function actionImport() {
+        $model = new ImportForm;
+        if (isset($_POST['ImportForm'])) {
+            $model->attributes = $_POST['ImportForm'];
+            $model->importFile = CUploadedFile::getInstance($model, 'importFile');            
+            if ($model->validate() && $model->import()) {
+                Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Data imported.'));
+                $this->redirect(array('admin'));
+            }
+        }
+        $this->render('import', array('model' => $model));
     }
 
 }

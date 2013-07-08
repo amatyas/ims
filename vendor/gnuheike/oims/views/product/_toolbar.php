@@ -59,6 +59,11 @@
                                     )),
                             ),
                         ));
+                        $this->widget("bootstrap.widgets.TbButton", array(
+                            "label" => Yii::t("oims", "Import"),
+                            "icon" => "icon-upload",
+                            "url" => $this->createUrl('import'),
+                        ));
                         break;
                     case "view":
                         $this->widget("bootstrap.widgets.TbButton", array(

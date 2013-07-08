@@ -41,7 +41,7 @@ abstract class BaseInvProduct extends CActiveRecord {
     public function rules() {
         return array_merge(
                 parent::rules(), array(
-            array('sku, name, description, is_in_stock, wholesale_price, retail_price, manufacturer, supplier_id', 'required'),
+            array('sku, name, description, retail_price, supplier_id', 'required'),
             array('sku', 'unique', 'message' => Yii::t('oims', 'This sku already exists.')),
             array('short_description, items_in_stock, wholesale_special_price, retail_special_price, is_published, is_validated, category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('items_in_stock, wholesale_price, retail_price, wholesale_special_price, retail_special_price', 'numerical', 'min' => 0),
@@ -91,36 +91,7 @@ abstract class BaseInvProduct extends CActiveRecord {
             'category_id' => Yii::t('OimsModule.oims', 'Category'),
             'category' => Yii::t('OimsModule.oims', 'Category'),
         );
-    }
-
-    public function search() {
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.sku', $this->sku, true);
-        $criteria->compare('t.name', $this->name, true);
-        $criteria->compare('t.short_description', $this->short_description, true);
-        $criteria->compare('t.description', $this->description, true);
-        $criteria->compare('t.is_in_stock', $this->is_in_stock);
-        $criteria->compare('t.items_in_stock', $this->items_in_stock);
-        $criteria->compare('t.wholesale_price', $this->wholesale_price, true);
-        $criteria->compare('t.wholesale_special_price', $this->wholesale_special_price, true);
-        $criteria->compare('t.retail_price', $this->retail_price, true);
-        $criteria->compare('t.retail_special_price', $this->retail_special_price, true);
-        $criteria->compare('t.manufacturer', $this->manufacturer, true);
-        $criteria->compare('t.last_update_date', $this->last_update_date, true);
-        $criteria->compare('t.is_published', $this->is_published);
-        $criteria->compare('t.is_validated', $this->is_validated);
-        $criteria->compare('t.supplier_id', $this->supplier_id);
-        $criteria->compare('t.category_id', $this->category_id);
-
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 100,
-            ),
-        ));
-    }
+    }    
 
     public function beforeSave() {
         $this->last_update_date = new CDbExpression('NOW()');

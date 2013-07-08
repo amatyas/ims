@@ -10,7 +10,7 @@ $vendorPackageRelPath = "";
 return array(
     'sourcePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $vendorPackageRelPath,
     'messagePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $vendorPackageRelPath . DIRECTORY_SEPARATOR . 'messages',
-    'languages' => array('en', 'de'),
+    'languages' => array('en', 'de', 'fr'),
     'fileTypes' => array('php'),
     'overwrite' => true,
     'exclude' => array(
