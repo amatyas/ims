@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/controllers/ProductController.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/import.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/admin.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/ImportForm.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_toolbar.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/config/messages.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/zen/EExcelBehavior/EExcelBehavior.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/zen/EExcelBehavior/EExcelView.php</file>
+        <file>file:/home/gnuheike/projects/phundament/www/themes/frontend/css/oims.css</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/kogan/yexcel/Yexcel.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/codeplex/phpexcel/Classes/PHPExcel/Worksheet.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/codeplex/phpexcel/Classes/PHPExcel/IOFactory.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/codeplex/phpexcel/Classes/PHPExcel/NamedRange.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/codeplex/phpexcel/Classes/PHPExcel.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/BaseInvProduct.php</file>
+    </open-files>
+</project-private>

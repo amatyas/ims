@@ -1,7 +1,7 @@
 /www/assets
-protected/runtime/
+/protected/runtime/
 themes/classic/views/
-app/config/local.php
+/app/config/local.php
 !/vendor/z_bodya/gallery-manager/assets/
 /www/gallery/
 !/vendor/clevertech/yiibooster/src/assets/
