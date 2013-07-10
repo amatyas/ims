@@ -50,7 +50,7 @@ class InvProduct extends BaseInvProduct {
     }
 
     public function getHint($name) {
-        return '';//("help.{$name}" != $help = Yii::t('oims.{$name}', "help.")) ? $help : null;
+        return ''; //("help.{$name}" != $help = Yii::t('oims.{$name}', "help.")) ? $help : null;
     }
 
     public function isAttributeSafe($attribute) {
@@ -69,14 +69,14 @@ class InvProduct extends BaseInvProduct {
         $this->checkAccess();
         return parent::afterFind();
     }
-    
+
     public function checkAccess() {
-        if (Yii::app()->user->isSuperuser || $this->supplier_id==Yii::app()->user->id)
+        if (Yii::app()->user->isSuperuser || $this->supplier_id == Yii::app()->user->id)
             return true;
-  
+
         throw new CHttpException(404, 'You are not authorized to view this product!');
     }
-    
+
     public function search() {
         $criteria = new CDbCriteria;
 
@@ -97,15 +97,22 @@ class InvProduct extends BaseInvProduct {
         $criteria->compare('t.is_validated', $this->is_validated);
         //$criteria->compare('t.supplier_id', $this->supplier_id);
         $criteria->compare('t.category_id', $this->category_id);
-              
+
         if (!Yii::app()->user->isSuperuser)
             $criteria->compare('t.supplier_id', Yii::app()->user->id);
-        
+
+        $pageSize = Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']);
+        if ($pageSize)
+            $pagination = array(
+                'pageSize' => $pageSize? : false,
+            );
+        else
+            $pagination = false;
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 100,
-            ),
+            'pagination' => $pagination
         ));
     }
+
 }

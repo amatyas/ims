@@ -68,7 +68,8 @@ class ProductController extends Controller {
 
             try {
                 if ($model->save()) {
-                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product created.'));
+                    $link = CHtml::link('View', '#', array('onclick' => "oims_aplly_filter(['sku','{$model->sku}']);return false;"));
+                    Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Product created. {link}', array('{link}' => $link)));
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
@@ -162,6 +163,11 @@ class ProductController extends Controller {
     }
 
     public function actionAdmin() {
+        if (isset($_GET['pageSize'])) {
+            Yii::app()->user->setState('pageSize', (int) $_GET['pageSize']);
+            unset($_GET['pageSize']);
+        }
+        
         $model = new InvProduct('search');
         $model->unsetAttributes();
 
@@ -259,7 +265,7 @@ class ProductController extends Controller {
         $model = new ImportForm;
         if (isset($_POST['ImportForm'])) {
             $model->attributes = $_POST['ImportForm'];
-            $model->importFile = CUploadedFile::getInstance($model, 'importFile');            
+            $model->importFile = CUploadedFile::getInstance($model, 'importFile');
             if ($model->validate() && $model->import()) {
                 Yii::app()->user->setFlash('success', Yii::t('OimsModule.oims', 'Data imported.'));
                 $this->redirect(array('admin'));

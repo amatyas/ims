@@ -57,14 +57,14 @@ class WNotificator extends CWidget {
      * Runs the widget.
      */
     public function run() {
-        
+
         /** @var CClientScript $cs */
         $cs = Yii::app()->getClientScript();
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/jquery.noty.js");
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/layouts/top.js");
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/layouts/topRight.js");
-        $cs->registerScriptFile("http://needim.github.io/noty/js/noty/themes/default.js");     
-       
+        $cs->registerScriptFile("http://needim.github.io/noty/js/noty/themes/default.js");
+
         foreach ($this->alerts as $type => $alert) {
             if (is_string($alert)) {
                 $type = $alert;
@@ -91,8 +91,15 @@ class WNotificator extends CWidget {
                         var noty_{$id} = noty({
                             text: '{$text}',
                             'layout':'topRight',
+                            template: '<div class=\"noty_message\"><span class=\"noty_text\"></span><div class=\"noty_close\"></div></div>',
+                             closeWith: ['button'], // ['click', 'button', 'hover']                            
                             type: '{$type}',
-                                });
+                                callback: {                            
+                                    afterShow: function() {setTimeout(function(){
+                                        noty_{$id}.close('noty_{$id}'); 
+                                    }, 3000);},                                  
+                                  },
+                                                                });
                         ");
                 }
             }

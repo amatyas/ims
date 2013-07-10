@@ -49,7 +49,7 @@ echo $form->errorSummary($model);
     <?php echo $form->textFieldRow($model, 'items_in_stock', array('hint' => $model->getHint('items_in_stock'))); ?>
     <?php echo $form->checkBoxRow($model, 'is_published', array('hint' => $model->getHint('is_published'))); ?>    
     <?php echo $form->textAreaRow($model, 'short_description', array('data-plus-as-tab'=>'false'), array('hint' => $model->getHint('short_description'))); ?>
-    <?php echo $form->redactorRow($model, 'description', array('data-plus-as-tab'=>'false'), array('hint' => $model->getHint('description'))); ?>
+    <?php echo $form->redactorRow($model, 'description', array('data-plus-as-tab'=>'false'), array('hint' => $model->getHint('description'),'htmlOptions'=>array('data-plus-as-tab'=>'false'))); ?>
     <?php
     $this->widget('GalleryManager', array(
         'gallery' => $model->galleryBehavior->getGallery(),

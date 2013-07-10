@@ -27,8 +27,7 @@
         }
         $cs->registerCssFile(Yii::app()->theme->baseUrl . '/css/oims.css');
         ?>
-        <?php $this->widget('WNotificator');?>
-        
+        <?php $this->widget('WNotificator');?>        
     </head>
 
     <body>

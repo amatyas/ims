@@ -2,6 +2,7 @@
 
 <?php
 
+$pageSize = Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']);
 $this->widget('TbExtendedSummaryGrid', array(
     'id' => 'inv-product-grid',
     'type' => 'striped bordered',
@@ -16,10 +17,9 @@ $this->widget('TbExtendedSummaryGrid', array(
     'columns' => array(
         array(
             'class' => 'CCheckBoxColumn',
-             'selectableRows' => '2',
+            'selectableRows' => '2',
             'checked' => 'false',
-            
-        ), 
+        ),
         array(
             'name' => 'sku',
             'class' => 'TbEditableColumnOims',
@@ -113,6 +113,10 @@ $this->widget('TbExtendedSummaryGrid', array(
             'template' => "{delete}",
             //'viewButtonUrl' => "Yii::app()->controller->createUrl('view', array('id' => \$data->id))",
             'deleteButtonUrl' => "Yii::app()->controller->createUrl('delete', array('id' => \$data->id))",
+            'header' => CHtml::dropDownList('pageSize', $pageSize, array(25 => 25, 50 => 50, 100 => 100, 200 => 200, 0 => 'all'), array(
+                'style' => 'width: 60px;',
+                'onchange' => "$.fn.yiiGridView.update('inv-product-grid',{ data:{pageSize: $(this).val() }})",
+            ))
         ),
     )
 ));

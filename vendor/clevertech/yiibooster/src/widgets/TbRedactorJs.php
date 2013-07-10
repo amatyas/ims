@@ -38,7 +38,7 @@ class TbRedactorJS extends CInputWidget
 		if (!isset($this->editorOptions['lang'])) {
 			$this->editorOptions['lang'] = substr(Yii::app()->getLanguage(), 0, 2);
 		}
-
+                
 		if ($this->selector === null) {
 			list($this->name, $this->id) = $this->resolveNameID();
 			$this->htmlOptions['id'] = $this->id;

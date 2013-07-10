@@ -16,19 +16,19 @@ return false;
 ");
 ?>
 
-<?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
-<h1>
-    <?php echo Yii::t('OimsModule.oims', 'Stock'); ?> <small><?php echo Yii::t('OimsModule.oims', 'Manage'); ?></small>
-</h1>
+
 
 <div class="row-fluid">
- 
-    <div class="span9" id="oims-grid">
-        <?php echo $this->renderPartial('_grid', array('model' => $model)); ?>
 
+    <div class="span9" id="oims-grid">
+        <?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
+        <h1>
+            <?php echo Yii::t('OimsModule.oims', 'Stock'); ?> <small><?php echo Yii::t('OimsModule.oims', 'Manage'); ?></small>
+        </h1>
+        <?php echo $this->renderPartial('_grid', array('model' => $model)); ?>
     </div>
 
-    <div class="span3" id="oims-form">
+    <div class="span3" id="oims-form" style="position: fixed;right: 0px;top: 40px;height: 100%;overflow-y: scroll;">
         <div class="spin" style="display: none;"><?php echo CHtml::image(CHtml::asset(Yii::app()->basePath . '/../www/images/loader.gif')); ?></div>
         <div class="content"></div>
     </div>

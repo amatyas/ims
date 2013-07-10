@@ -387,7 +387,8 @@ $mainConfig = array(
 // using Yii::app()->params['paramName']
     'params' => array(
 // this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
+        'adminEmail' => 'gnuheike@gmail.com',
+        'defaultPageSize' => 20,
         // global Phundament 3 parameters
         'p3.backendTheme' => 'backend', // defaults to 'backend'
         'p3.fallbackLanguage' => 'en', // defaults to 'en'

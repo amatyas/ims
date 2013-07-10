@@ -29,7 +29,7 @@ var JoelPurra = JoelPurra || {};
         key: 13
     };
 
-    var options = $.extend(true, {}, internalDefaults); 
+    var options = $.extend(true, {}, internalDefaults);
 
     var enablePlusAsTab = ".plus-as-tab, [data-plus-as-tab=true]";
     var disablePlusAsTab = ".disable-plus-as-tab, [data-plus-as-tab=false]";
@@ -88,8 +88,9 @@ var JoelPurra = JoelPurra || {};
             }
 
             var $target = $(event.target);
-
+            
             if ($target.is(disablePlusAsTab)
+                    || jQuery($target).hasClass('redactor_editor')
                     || $target.parents(disablePlusAsTab).length > 0
                     || (!$target.is(enablePlusAsTab)
                     && $target.parents(enablePlusAsTab).length === 0)) {
