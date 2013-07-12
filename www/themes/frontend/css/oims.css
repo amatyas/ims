@@ -46,3 +46,11 @@ form input.success {
     margin-left: 5px;
     border-radius: 4px !important;
 }
+
+#inv-product-form label, #inv-product-form input,  #inv-product-form .help-block {
+    margin-bottom: 0px;
+}
+
+.photo .image-preview {
+    height: auto !important;
+}

@@ -45,10 +45,9 @@ class GalleryController extends CController
     {
         $model = new GalleryPhoto();
         $model->gallery_id = $gallery_id;
-        $imageFile = CUploadedFile::getInstanceByName('image');
+        $imageFile = CUploadedFile::getInstanceByName('image');     
         $model->file_name = $imageFile->getName();
         $model->save();
-
         
         $model->setImage($imageFile->getTempName());
         header("Content-Type: application/json");

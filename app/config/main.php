@@ -216,7 +216,7 @@ $mainConfig = array(
             'class' => 'vendor.nlac.nls.NLSClientScript',
             //'excludePattern' => '/\.tpl/i', //js regexp, files with matching paths won't be filtered is set to other than 'null'
 //'includePattern' => '/\.php/', //js regexp, only files with matching paths will be filtered if set to other than 'null'
-            'mergeJs' => true, //def:true
+            'mergeJs' => false, //def:true
             'compressMergedJs' => false, //def:false
             'mergeCss' => false, //def:true
             'compressMergedCss' => false, //def:false
@@ -268,6 +268,7 @@ $mainConfig = array(
         'image' => array(
             'class' => 'vendor.z_bodya.yii-image.CImageComponent',
             'driver' => 'GD',
+            //'params'=>array('directory'=>'/usr/bin'),
         ),
         'returnUrl' => array(
             'class' => 'vendor.phundament.p3extensions.components.P3ReturnUrl',

@@ -378,7 +378,7 @@ class Image
 
         if ($status = $this->driver->process($this->image, $this->actions, $dir, $file)) {
             if ($chmod !== FALSE) {
-                // Set permissions
+                // Set permissions             
                 chmod($new_image, $chmod);
             }
         }

@@ -16,10 +16,11 @@
  *
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
-class GalleryPhoto extends CActiveRecord
-{
+class GalleryPhoto extends CActiveRecord {
+
     /** @var string Extensions for gallery images */
-    public $galleryExt = 'jpg';
+    public $galleryExt = 'png';
+
     /** @var string directory in web root for galleries */
     public $galleryDir = 'gallery';
 
@@ -28,28 +29,24 @@ class GalleryPhoto extends CActiveRecord
      * @param string $className active record class name.
      * @return GalleryPhoto the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         if ($this->dbConnection->tablePrefix !== null)
             return '{{gallery_photo}}';
         else
             return 'gallery_photo';
-
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -66,8 +63,7 @@ class GalleryPhoto extends CActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -78,8 +74,7 @@ class GalleryPhoto extends CActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'id' => 'ID',
             'gallery_id' => 'Gallery',
@@ -94,8 +89,7 @@ class GalleryPhoto extends CActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -113,8 +107,7 @@ class GalleryPhoto extends CActiveRecord
         ));
     }
 
-    public function save($runValidation = true, $attributes = null)
-    {
+    public function save($runValidation = true, $attributes = null) {
         parent::save($runValidation, $attributes);
         if ($this->rank == null) {
             $this->rank = $this->id;
@@ -124,28 +117,27 @@ class GalleryPhoto extends CActiveRecord
         return true;
     }
 
-    public function getPreview()
-    {
+    public function getPreview() {
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt;
     }
 
-    private function getFileName($version = '')
-    {
+    private function getFileName($version = '') {
         return $this->id . $version;
     }
 
-    public function getUrl($version = '')
-    {
+    public function getUrl($version = '') {
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt;
     }
 
-    public function setImage($path)
-    {
+    public function setImage($path) {
         //save image in original size
+        //copy($path, $this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
+        //die($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
         Yii::app()->image->load($path)->save($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
+       
         //create image preview for gallery manager
         Yii::app()->image->load($path)->resize(300, null)->save($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt);
-        
+
         foreach ($this->gallery->versions as $version => $actions) {
             $image = Yii::app()->image->load($path);
             foreach ($actions as $method => $args) {
@@ -155,8 +147,7 @@ class GalleryPhoto extends CActiveRecord
         }
     }
 
-    public function delete()
-    {
+    public function delete() {
         $this->removeFile($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
         //create image preview for gallery manager
         $this->removeFile($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt);
@@ -167,14 +158,12 @@ class GalleryPhoto extends CActiveRecord
         return parent::delete();
     }
 
-    private function removeFile($fileName)
-    {
+    private function removeFile($fileName) {
         if (file_exists($fileName))
             @unlink($fileName);
     }
 
-    public function removeImages()
-    {
+    public function removeImages() {
         foreach ($this->gallery->versions as $version => $actions) {
             $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
         }
@@ -183,8 +172,7 @@ class GalleryPhoto extends CActiveRecord
     /**
      * Regenerate image versions
      */
-    public function updateImages()
-    {
+    public function updateImages() {
         foreach ($this->gallery->versions as $version => $actions) {
             $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
 
@@ -195,6 +183,5 @@ class GalleryPhoto extends CActiveRecord
             $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
         }
     }
-
 
 }
