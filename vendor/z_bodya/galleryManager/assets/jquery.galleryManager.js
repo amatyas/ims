@@ -103,7 +103,7 @@
                     description = $('.caption p', photo).text();
                 form.append(createEditorElement(id, src, name, description));
             }
-            if (l > 0)$editorModal.modal('show');
+            if (l > 0) {$editorModal.modal('show');$('.modal-backdrop').hide();}
         }
 
         function removePhotos(ids) {

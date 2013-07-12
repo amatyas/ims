@@ -54,3 +54,8 @@ form input.success {
 .photo .image-preview {
     height: auto !important;
 }
+
+.modal-backdrop {
+    display: none !important;
+    
+}
