@@ -1,20 +1,16 @@
-(function ($) {
+(function($) {
 
     var galleryDefaults = {
         csrfToken: null,
         csrfTokenName: null,
-
         nameLabel: 'Name',
         descriptionLabel: 'Description',
-
         hasName: true,
         hasDesc: true,
-
         uploadUrl: '',
         deleteUrl: '',
         updateUrl: '',
         arrangeUrl: '',
-
         photos: []
     };
 
@@ -28,9 +24,10 @@
         if (!opts.hasName) {
             if (!opts.hasDesc) {
                 $gallery.addClass('no-name-no-desc');
-                $('.edit_selected',$gallery).hide();
+                $('.edit_selected', $gallery).hide();
             }
-            else $gallery.addClass('no-name');
+            else
+                $gallery.addClass('no-name');
 
         } else if (!opts.hasDesc)
             $gallery.addClass('no-desc');
@@ -44,37 +41,40 @@
 
         function htmlEscape(str) {
             return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
+                    .replace(/&/g, '&amp;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
         }
 
         function createEditorElement(id, src, name, description) {
             var html = '<div class="photo-editor">' +
-                '<div class="preview"><img src="' + htmlEscape(src) + '" alt=""/></div>' +
-                '<div>' +
-                (opts.hasName
-                    ? '<label for="photo_name_' + id + '">' + opts.nameLabel + ':</label>' +
-                    '<input type="text" name="photo[' + id + '][name]" class="input-xlarge" value="' + htmlEscape(name) + '" id="photo_name_' + id + '"/>'
-                    : '') +
-                (opts.hasDesc
-                    ? '<label for="photo_description_' + id + '">' + opts.descriptionLabel + ':</label>' +
-                    '<textarea name="photo[' + id + '][description]" rows="3" cols="40" class="input-xlarge" id="photo_description_' + id + '">' + htmlEscape(description) + '</textarea>'
-                    : '') +
-                '</div>' +
-                '</div>';
+                    '<div class="preview"><img src="' + htmlEscape(src) + '" alt=""/></div>' +
+                    '<div>' +
+                    (opts.hasName
+                            ? '<label for="photo_name_' + id + '">' + opts.nameLabel + ':</label>' +
+                            '<input type="text" name="photo[' + id + '][name]" class="input-xlarge" value="' + htmlEscape(name) + '" id="photo_name_' + id + '"/>'
+                            : '') +
+                    (opts.hasDesc
+                            ? '<label for="photo_description_' + id + '">' + opts.descriptionLabel + ':</label>' +
+                            '<textarea name="photo[' + id + '][description]" rows="3" cols="40" class="input-xlarge" id="photo_description_' + id + '">' + htmlEscape(description) + '</textarea>'
+                            : '') +
+                    '</div>' +
+                    '</div>';
             return $(html);
         }
 
         var photoTemplate = '<div class="photo">' + '<div class="image-preview"><img src=""/></div><div class="caption">';
-        if (opts.hasName)photoTemplate += '<h5></h5>';
-        if (opts.hasDesc)photoTemplate += '<p></p>';
+        if (opts.hasName)
+            photoTemplate += '<h5></h5>';
+        if (opts.hasDesc)
+            photoTemplate += '<p></p>';
         photoTemplate += '</div><div class="actions">';
-        if (opts.hasName || opts.hasDesc)photoTemplate += '<span class="editPhoto btn btn-primary btn-mini"><i class="icon-pencil icon-white"></i></span> ';
+        if (opts.hasName || opts.hasDesc)
+            photoTemplate += '<span class="editPhoto btn btn-primary btn-mini"><i class="icon-pencil icon-white"></i></span> ';
         photoTemplate += '<span class="deletePhoto btn btn-danger btn-mini"><i class="icon-remove icon-white"></i></span>' +
-            '</div><input type="checkbox" class="photo-select"/></div>';
+                '</div><input type="checkbox" class="photo-select"/></div>';
 
 
         function addPhoto(id, src, name, description, rank) {
@@ -84,8 +84,10 @@
             photo.data('rank', rank);
 
             $('img', photo).attr('src', src);
-            if (opts.hasName) $('.caption h5', photo).text(name);
-            if (opts.hasDesc) $('.caption p', photo).text(description);
+            if (opts.hasName)
+                $('.caption h5', photo).text(name);
+            if (opts.hasDesc)
+                $('.caption p', photo).text(description);
 
             $images.append(photo);
             return photo;
@@ -98,12 +100,13 @@
             for (var i = 0; i < l; i++) {
                 var id = ids[i];
                 var photo = photos[id],
-                    src = $('img', photo).attr('src'),
-                    name = $('.caption h5', photo).text(),
-                    description = $('.caption p', photo).text();
+                        src = $('img', photo).attr('src'),
+                        name = $('.caption h5', photo).text(),
+                        description = $('.caption p', photo).text();
                 form.append(createEditorElement(id, src, name, description));
             }
-            if (l > 0) {$editorModal.modal('show');$('.modal-backdrop').hide();}
+            if (l > 0)
+                $editorModal.modal('show');
         }
 
         function removePhotos(ids) {
@@ -111,13 +114,14 @@
                 type: 'POST',
                 url: opts.deleteUrl,
                 data: 'id[]=' + ids.join('&id[]=') + csrfParams,
-                success: function (t) {
+                success: function(t) {
                     if (t == 'OK') {
                         for (var i = 0, l = ids.length; i < l; i++) {
                             photos[ids[i]].remove();
                             delete photos[ids[i]];
                         }
-                    } else alert(t);
+                    } else
+                        alert(t);
                 }});
         }
 
@@ -160,14 +164,14 @@
         }
 
         $images
-            .on('click', '.photo .deletePhoto', deleteClick)
-            .on('click', '.photo .editPhoto', editClick)
-            .on('click', '.photo .photo-select', selectChanged);
+                .on('click', '.photo .deletePhoto', deleteClick)
+                .on('click', '.photo .editPhoto', editClick)
+                .on('click', '.photo .photo-select', selectChanged);
 
 
-        $('.images', $sorter).sortable({ tolerance: "pointer" }).disableSelection().bind("sortstop", function () {
+        $('.images', $sorter).sortable({tolerance: "pointer"}).disableSelection().bind("sortstop", function() {
             var data = [];
-            $('.photo', $sorter).each(function () {
+            $('.photo', $sorter).each(function() {
                 var t = $(this);
                 data.push('order[' + t.data('id') + ']=' + t.data('rank'));
             });
@@ -176,20 +180,21 @@
                 url: opts.arrangeUrl,
                 data: data.join('&') + csrfParams,
                 dataType: "json"
-            }).done(function (data) {
-                    for (var id in data[id]) {
-                        photos[id].data('rank', data[id]);
-                    }
-                    // order saved!
-                    // we can inform user that order saved
-                });
+            }).done(function(data) {
+                for (var id in data[id]) {
+                    photos[id].data('rank', data[id]);
+                }
+                // order saved!
+                // we can inform user that order saved
+            });
         });
 
         if (window.FormData !== undefined) { // if XHR2 available
             var uploadFileName = $('.afile', $gallery).attr('name');
 
             function multiUpload(files) {
-                if (files.length == 0) return;
+                if (files.length == 0)
+                    return;
                 $progressOverlay.show();
                 $uploadProgress.css('width', '5%');
                 var filesCount = files.length;
@@ -204,7 +209,7 @@
                     }
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', opts.uploadUrl, true);
-                    xhr.onload = function () {
+                    xhr.onload = function() {
                         uploadedCount++;
                         if (this.status == 200) {
                             var resp = JSON.parse(this.response);
@@ -218,7 +223,8 @@
                         if (uploadedCount === filesCount) {
                             $uploadProgress.css('width', '100%');
                             $progressOverlay.hide();
-                            if (opts.hasName || opts.hasDesc) editPhotos(ids);
+                            if (opts.hasName || opts.hasDesc)
+                                editPhotos(ids);
                         }
                     };
                     xhr.send(fd);
@@ -226,15 +232,17 @@
 
             }
 
-            (function () { // add drag and drop
+            (function() { // add drag and drop
                 var el = $gallery[0];
                 var isOver = false;
                 var lastIsOver = false;
 
-                setInterval(function () {
+                setInterval(function() {
                     if (isOver != lastIsOver) {
-                        if (isOver) el.classList.add('over');
-                        else el.classList.remove('over');
+                        if (isOver)
+                            el.classList.add('over');
+                        else
+                            el.classList.remove('over');
                         lastIsOver = isOver
                     }
                 }, 30);
@@ -273,12 +281,12 @@
                 el.addEventListener('dragend', handleDragEnd, false);
             })();
 
-            $('.afile', $gallery).attr('multiple', 'true').on('change', function (e) {
+            $('.afile', $gallery).attr('multiple', 'true').on('change', function(e) {
                 e.preventDefault();
                 multiUpload(this.files);
             });
         } else {
-            $('.afile', $gallery).on('change', function (e) {
+            $('.afile', $gallery).on('change', function(e) {
                 e.preventDefault();
                 var ids = [];
                 $progressOverlay.show();
@@ -295,19 +303,20 @@
                     iframe: true,
                     processData: false,
                     dataType: "json"
-                }).done(function (resp) {
-                        addPhoto(resp['id'], resp['preview'], resp['name'], resp['description'], resp['rank']);
-                        ids.push(resp['id']);
-                        $uploadProgress.css('width', '100%');
-                        $progressOverlay.hide();
-                        if (opts.hasName || opts.hasDesc) editPhotos(ids);
-                    });
+                }).done(function(resp) {
+                    addPhoto(resp['id'], resp['preview'], resp['name'], resp['description'], resp['rank']);
+                    ids.push(resp['id']);
+                    $uploadProgress.css('width', '100%');
+                    $progressOverlay.hide();
+                    if (opts.hasName || opts.hasDesc)
+                        editPhotos(ids);
+                });
             });
         }
 
-        $('.save-changes', $editorModal).click(function (e) {
+        $('.save-changes', $editorModal).click(function(e) {
             e.preventDefault();
-            $.post(opts.updateUrl, $('input, textarea', $editorForm).serialize() + csrfParams, function (data) {
+            $.post(opts.updateUrl, $('input, textarea', $editorForm).serialize() + csrfParams, function(data) {
                 var count = data.length;
                 for (var key = 0; key < count; key++) {
                     var p = data[key];
@@ -320,7 +329,7 @@
                 }
                 $editorModal.modal('hide');
                 //deselect all items after editing
-                $('.photo.selected', $sorter).each(function () {
+                $('.photo.selected', $sorter).each(function() {
                     $('.photo-select', this).prop('checked', false)
                 }).removeClass('selected');
                 $('.select_all', $gallery).prop('checked', false);
@@ -329,33 +338,33 @@
 
         });
 
-        $('.edit_selected', $gallery).click(function (e) {
+        $('.edit_selected', $gallery).click(function(e) {
             e.preventDefault();
             var ids = [];
-            $('.photo.selected', $sorter).each(function () {
+            $('.photo.selected', $sorter).each(function() {
                 ids.push($(this).data('id'));
             });
             editPhotos(ids);
             return false;
         });
 
-        $('.remove_selected', $gallery).click(function (e) {
+        $('.remove_selected', $gallery).click(function(e) {
             e.preventDefault();
             var ids = [];
-            $('.photo.selected', $sorter).each(function () {
+            $('.photo.selected', $sorter).each(function() {
                 ids.push($(this).data('id'));
             });
             removePhotos(ids);
 
         });
 
-        $('.select_all', $gallery).change(function () {
+        $('.select_all', $gallery).change(function() {
             if ($(this).prop('checked')) {
-                $('.photo', $sorter).each(function () {
+                $('.photo', $sorter).each(function() {
                     $('.photo-select', this).prop('checked', true)
                 }).addClass('selected');
             } else {
-                $('.photo.selected', $sorter).each(function () {
+                $('.photo.selected', $sorter).each(function() {
                     $('.photo-select', this).prop('checked', false)
                 }).removeClass('selected');
             }
@@ -369,9 +378,9 @@
     }
 
     // The actual plugin
-    $.fn.galleryManager = function (options) {
+    $.fn.galleryManager = function(options) {
         if (this.length) {
-            this.each(function () {
+            this.each(function() {
                 galleryManager(this, options);
             });
         }

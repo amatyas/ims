@@ -63,6 +63,8 @@
                             "label" => Yii::t("oims", "Import"),
                             "icon" => "icon-upload",
                             "url" => $this->createUrl('import'),
+                            'htmlOptions' => array(
+                                "onclick" => "$('#fileUploadHandler').toggle();return false;"),
                         ));
                         break;
                     case "view":
@@ -115,7 +117,24 @@
                 }
                 ?>    
             </div>
+        </div> 
+        <div id='fileUploadHandler' style='display: none;'>
+            <?php
+            $this->widget('bootstrap.widgets.TbFileUpload', array(
+                'url' => $this->createUrl('importAjax'),
+                'model' => new ImportForm,
+                'attribute' => 'importFile', // see the attribute?
+                'multiple' => false,
+                'previewImages' => false,
+                'imageProcessing' => false,
+                'formView' => 'oims.views.fileUploadForm',
+                'options' => array(
+                    'maxFileSize' => 2000000,
+                    'acceptFileTypes' => 'js:/(\.|\/)(csv|xls|xlsx)$/i',
+                    'maxNumberOfFiles' => 1,
+                    'autoUpload' => true,
+            )));
+            ?>
         </div>
     </div>
 </div>
-

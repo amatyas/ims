@@ -167,7 +167,7 @@ class ProductController extends Controller {
             Yii::app()->user->setState('pageSize', (int) $_GET['pageSize']);
             unset($_GET['pageSize']);
         }
-        
+
         $model = new InvProduct('search');
         $model->unsetAttributes();
 
@@ -272,6 +272,40 @@ class ProductController extends Controller {
             }
         }
         $this->render('import', array('model' => $model));
+    }
+
+    public function actionImportAjax() {
+        header('Vary: Accept');
+        if (isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false)) {
+            header('Content-type: application/json');
+        } else {
+            header('Content-type: text/plain');
+        }
+        $data = array();
+
+        $model = new ImportForm();
+        $model->importFile = CUploadedFile::getInstance($model, 'importFile');
+
+        if ($model->importFile !== null && $model->validate(array('importFile'))) {
+            if ($model->import()) {
+                // return data to the fileuploader
+                $data[] = array(
+                    'name' => (string) $model->importFile,
+                    'type' => $model->importFile->type,
+                    'size' => $model->importFile->size,
+                );
+            } else {
+                $data[] = array('error' => 'Unable to save model after saving picture');
+            }
+        } else {
+            if ($model->hasErrors('importFile')) {
+                $data[] = array('error', $model->getErrors('importFile'));
+            } else {
+                throw new CHttpException(500, "Could not upload file " . CHtml::errorSummary($model));
+            }
+        }
+        // JQuery File Upload expects JSON data
+        echo json_encode($data);
     }
 
 }

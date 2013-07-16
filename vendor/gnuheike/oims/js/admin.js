@@ -6,6 +6,28 @@ $(function() {
     });
 
     $('#ma_quick_actions').next().find('a').click(multirowActions);
+
+    $('#ImportForm-form').fileupload({
+        done: function(e, data) {
+            noty_upload = noty({
+                text: 'Upload Success.',
+                'layout': 'topRight',
+                template: '<div class=\"noty_message\"><span class=\"noty_text\"></span><div class=\"noty_close\"></div></div>',
+                closeWith: ['button'], // ['click', 'button', 'hover']                            
+                type: 'success',
+                callback: {
+                    afterShow: function() {
+                        setTimeout(function() {
+                            noty_upload.close('noty_{$id}');
+                        }, 3000);
+                    }
+                }
+            });
+            
+            document.location.reload(true);
+            return true;
+        }});
+
 });
 
 function multirowActions() {

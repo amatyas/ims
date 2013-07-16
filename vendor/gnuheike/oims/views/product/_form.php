@@ -69,7 +69,7 @@ echo $form->errorSummary($model);
 
 </div> <!-- sub inputs -->
 
-<div class="form-actions">
+<div class="form-actions" style="margin-bottom: 80px;">
     <?php
     echo CHtml::submitButton(Yii::t('OimsModule.oims', 'Save'), array(
         'class' => 'btn btn-primary submit-btn',

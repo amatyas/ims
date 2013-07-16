@@ -1,5 +1,7 @@
 <?php
 
+Yii::setPathOfAlias('WNotificator', __DIR__);
+
 /* ## TbAlert class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
@@ -62,7 +64,7 @@ class WNotificator extends CWidget {
         $cs = Yii::app()->getClientScript();
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/jquery.noty.js");
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/layouts/top.js");
-        $cs->registerScriptFile("http://needim.github.io/noty/js/noty/layouts/topRight.js");
+        $cs->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('WNotificator.assets') . DS . 'topRight.js'));
         $cs->registerScriptFile("http://needim.github.io/noty/js/noty/themes/default.js");
 
         foreach ($this->alerts as $type => $alert) {
