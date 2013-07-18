@@ -9,23 +9,45 @@ $(function() {
 
     $('#ImportForm-form').fileupload({
         done: function(e, data) {
-            noty_upload = noty({
-                text: 'Upload Success.',
-                'layout': 'topRight',
-                template: '<div class=\"noty_message\"><span class=\"noty_text\"></span><div class=\"noty_close\"></div></div>',
-                closeWith: ['button'], // ['click', 'button', 'hover']                            
-                type: 'success',
-                callback: {
-                    afterShow: function() {
-                        setTimeout(function() {
-                            noty_upload.close('noty_{$id}');
-                        }, 3000);
+            //Is there errors?
+            if (typeof data.result[0].error !== 'undefined' && data.result[0].error !== null && data.result[0].error.length > 0) {
+                  data.jqXHR.abort();
+                //There is errors. Display errors messages
+                $.each(data.result[0].error, function(i, val) {                    
+                    noty_upload_error = noty({
+                        text: val,
+                        'layout': 'topRight',
+                        template: '<div class=\"noty_message\"><span class=\"noty_text\"></span><div class=\"noty_close\"></div></div>',
+                        closeWith: ['button'], // ['click', 'button', 'hover']                            
+                        type: 'error',
+                        callback: {
+                            afterShow: function() {
+                                setTimeout(function() {
+                                    noty_upload_error.close();
+                                }, 5000);
+                            }
+                        }
+                    });
+                });
+            } else {
+                //There is success message
+                noty_upload = noty({
+                    text: 'Upload Success.',
+                    'layout': 'topRight',
+                    template: '<div class=\"noty_message\"><span class=\"noty_text\"></span><div class=\"noty_close\"></div></div>',
+                    closeWith: ['button'], // ['click', 'button', 'hover']                            
+                    type: 'success',
+                    callback: {
+                        afterShow: function() {
+                            setTimeout(function() {
+                                noty_upload.close('noty_upload');
+                            }, 3000);
+                        }
                     }
-                }
-            });
-            
-            document.location.reload(true);
-            return true;
+                });
+
+                document.location.reload(true);             
+            }
         }});
 
 });

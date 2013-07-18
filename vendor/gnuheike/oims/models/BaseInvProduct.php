@@ -41,7 +41,7 @@ abstract class BaseInvProduct extends CActiveRecord {
     public function rules() {
         return array_merge(
                 parent::rules(), array(
-            array('sku, name, description, retail_price, supplier_id', 'required'),
+            array('sku, name, retail_price, supplier_id', 'required'),
             array('sku', 'unique', 'message' => Yii::t('oims', 'This sku already exists.')),
             array('short_description, items_in_stock, wholesale_special_price, retail_special_price, is_published, is_validated, category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('items_in_stock, wholesale_price, retail_price, wholesale_special_price, retail_special_price', 'numerical', 'min' => 0),

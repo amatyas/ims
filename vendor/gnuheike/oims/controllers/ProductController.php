@@ -287,7 +287,7 @@ class ProductController extends Controller {
         $model->importFile = CUploadedFile::getInstance($model, 'importFile');
 
         if ($model->importFile !== null && $model->validate(array('importFile'))) {
-            if ($model->import()) {
+            if (true === ($errors = $model->import())) {
                 // return data to the fileuploader
                 $data[] = array(
                     'name' => (string) $model->importFile,
@@ -295,11 +295,11 @@ class ProductController extends Controller {
                     'size' => $model->importFile->size,
                 );
             } else {
-                $data[] = array('error' => 'Unable to save model after saving picture');
+                $data[] = array('error' => $errors);
             }
         } else {
             if ($model->hasErrors('importFile')) {
-                $data[] = array('error', $model->getErrors('importFile'));
+                $data['error'] = $model->getErrors('importFile');
             } else {
                 throw new CHttpException(500, "Could not upload file " . CHtml::errorSummary($model));
             }
