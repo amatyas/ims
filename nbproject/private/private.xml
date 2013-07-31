@@ -2,10 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/gnuheike/projects/phundament/vendor/z_bodya/galleryManager/GalleryController.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/controllers/ProductController.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/widgets/TbHeroUnit.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/widgets/TbCollapse.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/widgets/TbButtonGroup.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/widgets/TbAlert.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/assets/js/bootstrap-datepicker.min.js</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/filters/BootstrapFilter.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/kogan/yexcel/Yexcel.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/pdfexport/PdfExport.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/fileUploadForm.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/view.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/notificator/WNotificator.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/notificator/assets/topRight.js</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/update.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/pdfOut.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/import.php</file>
@@ -14,18 +21,14 @@
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_search.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_grid.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_form.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/widgets/TbFileUpload.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/views/fileupload/form.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/assets/js/fileupload/main.js</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/clevertech/yiibooster/src/views/fileupload/upload.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/ImportForm.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_toolbar.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/z_bodya/galleryManager/GalleryBehavior.php</file>
-        <file>file:/home/gnuheike/projects/phundament/www/themes/frontend/css/oims.css</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/fileUploadForm.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/InvProductImage.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/InvProductCategory.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/InvProduct.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/js/emulatetab.joelpurra.js</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/notificator/assets/topRight.js</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/BaseInvProduct.php</file>
         <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/js/admin.js</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/controllers/ProductController.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/z_bodya/galleryManager/models/GalleryPhoto.php</file>
-        <file>file:/home/gnuheike/projects/phundament/vendor/z_bodya/galleryManager/assets/jquery.galleryManager.js</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/views/product/_toolbar.php</file>
+        <file>file:/home/gnuheike/projects/phundament/vendor/gnuheike/oims/models/ImportForm.php</file>
     </open-files>
 </project-private>
