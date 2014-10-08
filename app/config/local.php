@@ -25,8 +25,8 @@ $localConfig = array(
             'transportType' => 'smtp',
             'transportOptions' => array(
                 'host' => 'smtp.gmail.com',
-                'username' => 'gnuheike@gmail.com',
-                'password' => 'fuqyxeioowjiztho',
+                'username' => '',
+                'password' => '',
                 'port' => '465',
                 'encryption' => 'ssl'
             ),
